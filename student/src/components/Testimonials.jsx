@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 
-// Import student photos (using existing images as placeholders for new entries)
+// Import student photos
 import samradhhiImg from "../assets/samradhhi-jain.jpg";
 import jaskeeratImg from "../assets/jaskeerat-singh.jpg";
 import kapilImg from "../assets/kapil-shrivastava.jpg";
-import maryamImg from "../assets/maryam.jpg"; // Placeholder for Maryam Ali
-import akanshaImg from "../assets/akansha.jpg"; // Placeholder for Akansha Trivedi
+import maryamImg from "../assets/maryam.jpg";
+import akanshaImg from "../assets/akansha.jpg";
 
 const TestimonialSection = () => {
   const testimonials = [
@@ -40,19 +40,18 @@ const TestimonialSection = () => {
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -scrollRef.current.offsetWidth, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: -256, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: scrollRef.current.offsetWidth, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: 256, behavior: 'smooth' });
     }
   };
 
   return (
     <>
-      {/* Import Google Fonts */}
       <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&display=swap"
         rel="stylesheet"
@@ -73,14 +72,14 @@ const TestimonialSection = () => {
           <div className="flex items-center justify-center">
             <button
               onClick={scrollLeft}
-              className="flex text-indigo-600 w-8 sm:w-10 h-8 sm:h-10 items-center justify-center rounded-xl hover:text-indigo-700 hover:scale-105 transition-all duration-300 ease-in-out mr-4 sm:mr-4 md:hidden"
+              className="flex text-indigo-600 w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14 items-center justify-center rounded-xl hover:text-indigo-700 hover:scale-105 transition-all duration-300 ease-in-out mr-4 sm:mr-6"
               aria-label="Scroll Left"
             >
               ❮
             </button>
             <div
               ref={scrollRef}
-              className="flex flex-row sm:grid sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 overflow-x-auto overflow-y-hidden scrollbar-hidden snap-x snap-mandatory w-full max-w-[calc(100%-64px)] sm:max-w-full md:max-w-full md:overflow-hidden"
+              className="flex gap-3 sm:gap-4 md:gap-6 lg:gap-8 overflow-x-auto overflow-y-hidden scrollbar-hidden snap-x snap-mandatory w-full"
             >
               <style>{`
                 .scrollbar-hidden::-webkit-scrollbar {
@@ -123,7 +122,7 @@ const TestimonialSection = () => {
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.name}
-                  className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-[1px] w-full sm:w-60 md:w-64 lg:w-72 mx-auto flex-none snap-center md:snap-none"
+                  className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-[1px] w-full sm:w-60 md:w-64 lg:w-72 flex-none snap-center"
                 >
                   <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 flex flex-col items-center text-center h-full hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out animate-popIn">
                     <img
@@ -144,7 +143,7 @@ const TestimonialSection = () => {
             </div>
             <button
               onClick={scrollRight}
-              className="flex text-indigo-600 w-8 sm:w-10 h-8 sm:h-10 items-center justify-center rounded-xl hover:text-indigo-700 hover:scale-105 transition-all duration-300 ease-in-out ml-4 sm:ml-4 md:hidden"
+              className="flex text-indigo-600 w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14 items-center justify-center rounded-xl hover:text-indigo-700 hover:scale-105 transition-all duration-300 ease-in-out ml-4 sm:ml-6"
               aria-label="Scroll Right"
             >
               ❯

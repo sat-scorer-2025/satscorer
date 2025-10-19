@@ -163,7 +163,7 @@ const Header = ({ onMenuClick }) => {
 
   if (loading) {
     return (
-      <header className="bg-gradient-to-r from-indigo-900 to-purple-900 text-white top-0 left-0 right-0 z-50 h-14 sm:h-16 font-sans">
+      <header className="bg-gradient-to-r from-purple-200 to-purple-900 text-white top-0 left-0 right-0 z-50 h-14 sm:h-16 font-sans">
         <div className="flex items-center justify-between px-4 h-full">
           <div className="text-xl sm:text-2xl font-bold animate-pulse">Loading...</div>
         </div>

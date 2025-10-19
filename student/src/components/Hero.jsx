@@ -22,7 +22,7 @@ const Hero = () => {
       section.style.backgroundPositionY = `${scrollY * 0.4}px`;
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);  
   }, []);
 
   return (

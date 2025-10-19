@@ -1,0 +1,43 @@
+/* Custom styles for React-Toastify */
+.custom-toast-container {
+  --toastify-toast-width: 300px; /* Reduced width */
+  --toastify-toast-background: #2c3e50;
+  --toastify-toast-min-height: 60px; /* Reduced height */
+  --toastify-toast-bd-radius: 8px;
+  --toastify-color-progress-dark: #3498db;
+}
+
+.Toastify__toast {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  font-size: 16px !important;
+  padding: 10px !important;
+  color: #333333 !important; /* Dark gray text color */
+}
+
+.Toastify__toast-body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.5;
+}
+
+.Toastify__progress-bar {
+  height: 5px !important;
+  background: linear-gradient(to right, #3498db, #2980b9) !important;
+}
+
+/* Custom styles for different toast types */
+.Toastify__toast--success {
+  background: #e6f3ff !important; /* Light blue for notifications */
+}
+
+.Toastify__toast--error {
+  background: #ea9a92 !important;
+}
+
+.Toastify__toast--warning {
+  background: #edd987 !important;
+}
+
+.Toastify__toast--info {
+  background: #84c1e9 !important;
+}

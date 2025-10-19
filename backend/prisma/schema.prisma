@@ -1,0 +1,213 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String        @id @map("_id") @default(auto()) @db.ObjectId
+  name            String
+  email           String        @unique
+  phone           String?
+  password        String
+  address         String?
+  dateOfBirth     DateTime?
+  profilePhoto    String?
+  exam            String?       // GRE, SAT, GMAT, IELTS, ACT, AP
+  university      String?
+  status          String        @default("active") // active, disabled, blocked
+  role            String        @default("student") // student, admin
+  enrolledCourses Enrollment[]
+  notifications   Notification[]
+  feedback        Feedback[]
+  support         Support[]
+  tests           TestResult[]
+  payments        Payment[]
+  otps            Otp[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Course {
+  id           String       @id @map("_id") @default(auto()) @db.ObjectId
+  title        String
+  description  String?
+  examType     String       // GRE, SAT, GMAT, IELTS, ACT, AP
+  price        Float
+  thumbnail    String?
+  about        String?
+  visibility   String       @default("public") // private, public
+  startDate    DateTime?
+  endDate      DateTime?
+  maxSeats     Int          @default(0)
+  status       String       @default("draft") // published, draft
+  tests        Test[]
+  videos       Video[]
+  notes        Notes[]
+  liveSessions LiveSession[]
+  enrollments  Enrollment[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model Enrollment {
+  id         String   @id @map("_id") @default(auto()) @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String   @db.ObjectId
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   String   @db.ObjectId
+  enrolledAt DateTime
+  status     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Feedback {
+  id       String  @id @map("_id") @default(auto()) @db.ObjectId
+  user     User    @relation(fields: [userId], references: [id])
+  userId   String  @db.ObjectId
+  course   Course? @relation(fields: [courseId], references: [id])
+  courseId String? @db.ObjectId
+  message  String
+  rating   Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LiveSession {
+  id          String  @id @map("_id") @default(auto()) @db.ObjectId
+  course      Course  @relation(fields: [courseId], references: [id])
+  courseId    String  @db.ObjectId
+  title       String
+  description String?
+  scheduledAt DateTime
+  link        String
+  platform    String
+  status      String  @default("scheduled") // scheduled, ongoing, completed
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Notes {
+  id        String  @id @map("_id") @default(auto()) @db.ObjectId
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  String  @db.ObjectId
+  title     String
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id          String   @id @map("_id") @default(auto()) @db.ObjectId
+  title       String
+  message     String
+  image       String?
+  users       User[]
+  readBy      User[]
+  type        String   // announcement, reminder
+  recipient   String?
+  scheduledAt DateTime?
+  status      String   @default("pending") // pending, sent, failed
+  channel     String   // in-app, email
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Otp {
+  id        String  @id @map("_id") @default(auto()) @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @db.ObjectId
+  otp       String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id            String  @id @map("_id") @default(auto()) @db.ObjectId
+  user          User    @relation(fields: [userId], references: [id])
+  userId        String  @db.ObjectId
+  course        Course? @relation(fields: [courseId], references: [id])
+  courseId      String? @db.ObjectId
+  amount        Float
+  status        String  // pending, completed, failed
+  paymentDate   DateTime?
+  cashfreeOrderId String
+  transactionId String?
+  paymentMethod String @default("unknown") // debit card, credit card, upi, etc.
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Test {
+  id           String       @id @map("_id") @default(auto()) @db.ObjectId
+  course       Course       @relation(fields: [courseId], references: [id])
+  courseId     String       @db.ObjectId
+  testType     String       // Mock Test, Topic Test, Section Test
+  examType     String       // GRE, SAT, GMAT, IELTS, ACT, AP
+  title        String       @unique
+  description  String?
+  duration     Int?
+  noOfAttempts Int          @default(1)
+  isFree       Boolean      @default(false)
+  questions    Question[]
+  results      TestResult[]
+  status       String       @default("draft") // published, draft
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model TestResult {
+  id          String  @id @map("_id") @default(auto()) @db.ObjectId
+  user        User    @relation(fields: [userId], references: [id])
+  userId      String  @db.ObjectId
+  test        Test    @relation(fields: [testId], references: [id])
+  testId      String  @db.ObjectId
+  score       Float
+  totalScore  Float
+  answers     Json
+  completedAt DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Question {
+  id            String  @id @map("_id") @default(auto()) @db.ObjectId
+  test          Test    @relation(fields: [testId], references: [id])
+  testId        String  @db.ObjectId
+  text          String
+  type          String  // mcq, checkbox, short, paragraph
+  options       Json
+  correctAnswer Json
+  explanation   String?
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Support {
+  id        String  @id @map("_id") @default(auto()) @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String  @db.ObjectId
+  course    Course? @relation(fields: [courseId], references: [id])
+  courseId  String? @db.ObjectId
+  query     String
+  status    String  @default("open") // open, resolved, closed
+  response  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Video {
+  id        String  @id @map("_id") @default(auto()) @db.ObjectId
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  String  @db.ObjectId
+  title     String
+  link      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

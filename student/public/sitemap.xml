@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://satscorer.com/</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- Public Pages -->
+  <url>
+    <loc>https://satscorer.com/signup</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://satscorer.com/login</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://satscorer.com/contactus</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://satscorer.com/aboutus</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://satscorer.com/courses</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://satscorer.com/exams</loc>
+    <lastmod>2025-08-09</lastmod>
+    <priority>0.85</priority>
+  </url>
+</urlset>

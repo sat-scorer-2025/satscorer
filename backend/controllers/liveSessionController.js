@@ -22,13 +22,7 @@ const getSessionForACourse = async (req, res) => {
             .populate('courseId', 'title examType')
             .sort({ scheduledAt: 1 }); // Sort by scheduledAt ascending
 
-        if (!sessions || sessions.length === 0) {
-            return res.status(404).json({ message: 'No live sessions found for this course' });
-        }
-
         res.status(200).json({
-            message: 'Live sessions retrieved successfully',
-            count: sessions.length,
             sessions
         });
     } catch (error) {

@@ -12,7 +12,7 @@
 //   const { fetchProtected, authError, user } = useAuthContext();
 
 //   const fetchCourses = useCallback(async () => {
-//     if (!user) return;
+//     if (!user || hasFetchedCourses) return;
 //     setIsLoading(true);
 //     try {
 //       const response = await fetchProtected(`${API_URL}/api/enrollment/myenrollment`);
@@ -22,7 +22,10 @@
 //           ...enrollment.courseId,
 //           enrollmentStatus: enrollment.status,
 //         }));
-//         setCourses(enrolledCourses);
+//         // Only update courses if different
+//         if (JSON.stringify(courses) !== JSON.stringify(enrolledCourses)) {
+//           setCourses(enrolledCourses);
+//         }
 //         setError(null);
 //       } else {
 //         setError(data.message || 'Failed to load courses');
@@ -35,7 +38,7 @@
 //       setIsLoading(false);
 //       setHasFetchedCourses(true);
 //     }
-//   }, [user, fetchProtected, authError]);
+//   }, [user, fetchProtected, authError, courses, hasFetchedCourses]);
 
 //   useEffect(() => {
 //     if (user && !hasFetchedCourses) {
@@ -239,23 +242,27 @@
 //   }, [fetchProtected]);
 
 //   const fetchFreeTests = useCallback(async () => {
-//   try {
-//     const response = await fetchProtected(`${API_URL}/api/test/free`);
-//     const data = await response.json();
-//     if (response.ok) {
-//       setError(null);
-//       return data.tests || [];
-//     } else {
-//       setError(data.message || 'Failed to fetch free tests');
+//     try {
+//       const response = await fetchProtected(`${API_URL}/api/test/free`);
+//       const data = await response.json();
+//       if (response.ok) {
+//         setError(null);
+//         return data.tests || [];
+//       } else {
+//         setError(data.message || 'Failed to fetch free tests');
+//         return [];
+//       }
+//     } catch (err) {
+//       setError(err.message || 'Failed to fetch free tests');
 //       return [];
 //     }
-//   } catch (err) {
-//     setError(err.message || 'Failed to fetch free tests');
-//     return [];
-//   }
-// }, [fetchProtected]);
+//   }, [fetchProtected]);
 
-//   // Memoize context value to prevent unnecessary re-renders
+//   // Reset hasFetchedCourses when user changes to allow re-fetching for new user
+//   useEffect(() => {
+//     setHasFetchedCourses(false);
+//   }, [user]);
+
 //   const contextValue = useMemo(
 //     () => ({
 //       courses,

@@ -141,6 +141,7 @@ import notificationRouter from './routes/notificationRoutes.js';
 import feedbackRouter from './routes/feedbackRoutes.js';
 import supportRouter from './routes/supportRoutes.js';
 import otpRouter from './routes/otpRoutes.js';
+import contactRouter from './routes/contactRoutes.js';
 import './models/UserModel.js';
 import './models/CourseModel.js';
 import './models/EnrollmentModel.js';
@@ -229,6 +230,8 @@ app.use('/api/notification', notificationRouter);
 app.use('/api/feedback', feedbackRouter);
 app.use('/api/support', supportRouter);
 app.use('/api/otp', otpRouter);
+app.use('/api/contact', contactRouter);
+
 
 app.post('/api/upload', upload.single('file'), (req, res) => {
   try {

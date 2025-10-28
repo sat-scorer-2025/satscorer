@@ -114,6 +114,7 @@
 
 
 
+// Footer.jsx
 import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
@@ -124,19 +125,23 @@ import axios from 'axios';
 const Footer = () => {
   const [visitorCount, setVisitorCount] = useState(0);
 
-  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  // This will use VITE_API_URL from .env
+  const baseURL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    const hasVisited = localStorage.getItem('visited');
+    const hasVisited = localStorage.getItem('hasVisitedBefore');
+
     const recordVisit = async () => {
       try {
-        const response = await axios.post(`${baseURL}/api/visitor`);
+        const response = await axios.post(`${baseURL}/api/visitor`, {}, {
+          headers: { 'Content-Type': 'application/json' }
+        });
         if (response.data?.totalCount) {
           setVisitorCount(response.data.totalCount);
         }
-        localStorage.setItem('visited', 'true');
+        localStorage.setItem('hasVisitedBefore', 'true');
       } catch (error) {
-        console.error('Error logging visit:', error);
+        console.error('Error logging visit:', error.response?.data || error.message);
       }
     };
 
@@ -147,22 +152,23 @@ const Footer = () => {
           setVisitorCount(response.data.totalCount);
         }
       } catch (error) {
-        console.error('Error fetching visitor count:', error);
+        console.error('Error fetching visitor count:', error.response?.data || error.message);
       }
     };
 
-    if (!hasVisited) recordVisit();
-    else fetchCount();
-  }, []);
+    if (!hasVisited) {
+      recordVisit();
+    } else {
+      fetchCount();
+    }
+  }, [baseURL]);
 
-  // Format visitor count to always show 5 digits (e.g., 00005)
   const formattedCount = visitorCount.toString().padStart(5, '0');
 
   return (
     <footer className="bg-gradient-to-b from-gray-100 to-white text-gray-700 w-full py-8 sm:py-10 md:py-12 lg:py-16 border-t border-gray-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
-          
           {/* Company Info */}
           <div className="space-y-3 sm:space-y-4">
             <img
@@ -214,7 +220,7 @@ const Footer = () => {
                 <a href="https://x.com/Praveen65488161" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="Twitter">
                   <FaXTwitter className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
-                <a href="www.linkedin.com/in/praveen-shrivastava-821bb4233" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/praveen-shrivastava-821bb4233" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="LinkedIn">
                   <FaLinkedin className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
                 <a href="https://www.instagram.com/praveenshrivastava23" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="Instagram">
@@ -228,7 +234,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Visitor Counter Box */}
+        {/* Visitor Counter */}
         <div className="flex justify-center mt-8 sm:mt-10">
           <div className="flex items-center bg-purple-100 border border-purple-300 rounded-2xl px-5 py-2 shadow-md hover:shadow-lg transition-shadow duration-300">
             <EyeIcon className="w-6 h-6 text-purple-600 mr-2" />

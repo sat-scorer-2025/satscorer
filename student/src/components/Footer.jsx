@@ -129,37 +129,48 @@ const Footer = () => {
   const baseURL = import.meta.env.VITE_API_URL;
 
   // Footer.jsx (only change in useEffect)
+// Footer.jsx
 useEffect(() => {
-  console.log('VITE_API_URL:', baseURL); // DEBUG
+  console.log('API URL:', baseURL);
 
   const hasVisited = localStorage.getItem('hasVisitedBefore');
 
   const recordVisit = async () => {
     try {
-      console.log('Recording visit to:', `${baseURL}/api/visitor`);
-      const response = await axios.post(`${baseURL}/api/visitor`, {}, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const response = await axios.post(
+        `${baseURL}/api/visitor`,
+        {},
+        {
+          headers: { 'Content-Type': 'application/json' },
+          timeout: 8000
+        }
+      );
       console.log('Visit logged:', response.data);
-      setVisitorCount(response.data.totalCount);
+      setVisitorCount(response.data.totalCount || 0);
       localStorage.setItem('hasVisitedBefore', 'true');
     } catch (error) {
-      console.error('Visit log failed:', error.response?.data || error.message);
+      console.error('Failed to log visit:', error.response?.data || error.message);
+      // Fallback: just fetch count
+      fetchCount();
     }
   };
 
   const fetchCount = async () => {
     try {
-      const response = await axios.get(`${baseURL}/api/visitor/count`);
+      const response = await axios.get(`${baseURL}/api/visitor/count`, { timeout: 8000 });
       console.log('Count fetched:', response.data);
-      setVisitorCount(response.data.totalCount);
+      setVisitorCount(response.data.totalCount || 0);
     } catch (error) {
-      console.error('Count fetch failed:', error.response?.data || error.message);
+      console.error('Failed to fetch count:', error.response?.data || error.message);
+      setVisitorCount(1); // Show at least 1
     }
   };
 
-  if (!hasVisited) recordVisit();
-  else fetchCount();
+  if (!hasVisited) {
+    recordVisit();
+  } else {
+    fetchCount();
+  }
 }, [baseURL]);
 
   const formattedCount = visitorCount.toString().padStart(5, '0');

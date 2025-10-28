@@ -1,184 +1,14 @@
-// import React from 'react';
-// import logo from '../assets/logo.png';
-// import { Link } from 'react-router-dom';
-// import { FaXTwitter, FaLinkedin, FaInstagram, FaFacebook } from 'react-icons/fa6';
-
-// const Footer = () => {
-//   return (
-//     <footer className="bg-gradient-to-b from-gray-100 to-white text-gray-700 w-full py-8 sm:py-10 md:py-12 lg:py-16 border-t border-gray-200">
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
-          
-//           {/* Company Info */}
-//           <div className="space-y-3 sm:space-y-4">
-//             <img
-//               src={logo}
-//               alt="SATScorer Logo"
-//               className="h-14 sm:h-16 md:h-18 lg:h-20 hover:scale-105 transition-transform duration-200"
-//             />
-//             <p className="text-xs sm:text-sm lg:text-base font-sans font-normal text-gray-600 leading-relaxed mt-2">
-//               Empowering students to achieve their academic dreams with personalized test prep and mentorship.
-//             </p>
-//           </div>
-
-//           {/* Quick Links */}
-//           <div>
-//             <h3 className="text-base sm:text-lg lg:text-xl font-semibold font-sans tracking-tight mb-3 sm:mb-4 text-gray-800">
-//               Quick Links
-//             </h3>
-//             <ul className="space-y-2 sm:space-y-3">
-//               <li><Link to="/" className="text-xs sm:text-sm lg:text-base text-gray-600 hover:text-purple-700 transition-colors duration-200">Home</Link></li>
-//               <li><Link to="/courses" className="text-xs sm:text-sm lg:text-base text-gray-600 hover:text-purple-700 transition-colors duration-200">Courses</Link></li>
-//               <li><Link to="/aboutus" className="text-xs sm:text-sm lg:text-base text-gray-600 hover:text-purple-700 transition-colors duration-200">About Us</Link></li>
-//             </ul>
-//           </div>
-
-//           {/* Support */}
-//           <div>
-//             <h3 className="text-base sm:text-lg lg:text-xl font-semibold font-sans tracking-tight mb-3 sm:mb-4 text-gray-800">
-//               Support
-//             </h3>
-//             <ul className="space-y-2 sm:space-y-3">
-//               <li><Link to="/contactus" className="text-xs sm:text-sm lg:text-base text-gray-600 hover:text-purple-700 transition-colors duration-200">Contact Us</Link></li>
-//               <li><Link to="/studentdashboard/support" className="text-xs sm:text-sm lg:text-base text-gray-600 hover:text-purple-700 transition-colors duration-200">Help & Support</Link></li>
-//             </ul>
-//           </div>
-
-//           {/* Contact Info */}
-//           <div>
-//             <h3 className="text-base sm:text-lg lg:text-xl font-semibold font-sans tracking-tight mb-3 sm:mb-4 text-gray-800">
-//               Get in Touch
-//             </h3>
-//             <div className="space-y-2 sm:space-y-3">
-//               <p className="text-xs sm:text-sm lg:text-base text-gray-600">
-//                 Email: <a href="mailto:support@satscorer.com" className="hover:text-purple-700">support@satscorer.com</a>
-//               </p>
-//               <p className="text-xs sm:text-sm lg:text-base text-gray-600">
-//                 Phone: <a href="tel:7987340207" className="hover:text-purple-700">7987340207</a>
-//               </p>
-//               <div className="flex space-x-3 sm:space-x-4 flex-wrap">
-
-//                 {/* X / Twitter */}
-//                 <a
-//                   href="https://x.com/Praveen65488161"
-//                   className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
-//                   aria-label="Twitter"
-//                 >
-//                   <FaXTwitter className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
-//                 </a>
-
-//                 {/* LinkedIn */}
-//                 <a
-//                   href="www.linkedin.com/in/praveen-shrivastava-821bb4233"
-//                   className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
-//                   aria-label="LinkedIn"
-//                 >
-//                   <FaLinkedin className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
-//                 </a>
-
-//                 {/* Instagram */}
-//                 <a
-//                   href="https://www.instagram.com/praveenshrivastava23"
-//                   className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
-//                   aria-label="Instagram"
-//                 >
-//                   <FaInstagram className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
-//                 </a>
-
-//                 {/* Facebook */}
-//                 <a
-//                   href="https://www.facebook.com/praveen.shri.144"
-//                   className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
-//                   aria-label="Facebook"
-//                 >
-//                   <FaFacebook className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
-//                 </a>
-
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Copyright */}
-//         <div className="border-t border-gray-200 mt-6 sm:mt-8 md:mt-10 lg:mt-12 pt-4 sm:pt-5 lg:pt-6 text-center">
-//           <p className="text-2xs sm:text-xs lg:text-sm text-gray-600">
-//             &copy; 2025 SAT Scorer. All rights reserved.
-//           </p>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
-
-
-// Footer.jsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { FaXTwitter, FaLinkedin, FaInstagram, FaFacebook } from 'react-icons/fa6';
-import { EyeIcon } from '@heroicons/react/24/solid';
-import axios from 'axios';
 
 const Footer = () => {
-  const [visitorCount, setVisitorCount] = useState(0);
-
-  // This will use VITE_API_URL from .env
-  const baseURL = import.meta.env.VITE_API_URL;
-
-  // Footer.jsx (only change in useEffect)
-// Footer.jsx
-useEffect(() => {
-  console.log('API URL:', baseURL);
-
-  const hasVisited = localStorage.getItem('hasVisitedBefore');
-
-  const recordVisit = async () => {
-    try {
-      const response = await axios.post(
-        `${baseURL}/api/visitor`,
-        {},
-        {
-          headers: { 'Content-Type': 'application/json' },
-          timeout: 8000
-        }
-      );
-      console.log('Visit logged:', response.data);
-      setVisitorCount(response.data.totalCount || 0);
-      localStorage.setItem('hasVisitedBefore', 'true');
-    } catch (error) {
-      console.error('Failed to log visit:', error.response?.data || error.message);
-      // Fallback: just fetch count
-      fetchCount();
-    }
-  };
-
-  const fetchCount = async () => {
-    try {
-      const response = await axios.get(`${baseURL}/api/visitor/count`, { timeout: 8000 });
-      console.log('Count fetched:', response.data);
-      setVisitorCount(response.data.totalCount || 0);
-    } catch (error) {
-      console.error('Failed to fetch count:', error.response?.data || error.message);
-      setVisitorCount(1); // Show at least 1
-    }
-  };
-
-  if (!hasVisited) {
-    recordVisit();
-  } else {
-    fetchCount();
-  }
-}, [baseURL]);
-
-  const formattedCount = visitorCount.toString().padStart(5, '0');
-
   return (
-    <footer className="bg-gradient-to-b from-gray-100 to-white text-gray-700 w-full py-8 sm:py-10 md:py-12 lg:py-16 border-t border-gray-200 relative">
+    <footer className="bg-gradient-to-b from-gray-100 to-white text-gray-700 w-full py-8 sm:py-10 md:py-12 lg:py-16 border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+          
           {/* Company Info */}
           <div className="space-y-3 sm:space-y-4">
             <img
@@ -227,30 +57,45 @@ useEffect(() => {
                 Phone: <a href="tel:7987340207" className="hover:text-purple-700">7987340207</a>
               </p>
               <div className="flex space-x-3 sm:space-x-4 flex-wrap">
-                <a href="https://x.com/Praveen65488161" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="Twitter">
+
+                {/* X / Twitter */}
+                <a
+                  href="https://x.com/Praveen65488161"
+                  className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
+                  aria-label="Twitter"
+                >
                   <FaXTwitter className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
-                <a href="https://www.linkedin.com/in/praveen-shrivastava-821bb4233" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="LinkedIn">
+
+                {/* LinkedIn */}
+                <a
+                  href="www.linkedin.com/in/praveen-shrivastava-821bb4233"
+                  className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
+                  aria-label="LinkedIn"
+                >
                   <FaLinkedin className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
-                <a href="https://www.instagram.com/praveenshrivastava23" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="Instagram">
+
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/praveenshrivastava23"
+                  className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
+                  aria-label="Instagram"
+                >
                   <FaInstagram className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
-                <a href="https://www.facebook.com/praveen.shri.144" className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200" aria-label="Facebook">
+
+                {/* Facebook */}
+                <a
+                  href="https://www.facebook.com/praveen.shri.144"
+                  className="w-9 sm:w-10 lg:w-11 h-9 sm:h-10 lg:h-11 flex items-center justify-center bg-gray-200 rounded-full hover:bg-purple-100 text-gray-600 hover:text-purple-700 transition-colors duration-200"
+                  aria-label="Facebook"
+                >
                   <FaFacebook className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
+
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Visitor Counter */}
-        <div className="flex justify-center mt-8 sm:mt-10">
-          <div className="flex items-center bg-purple-100 border border-purple-300 rounded-2xl px-5 py-2 shadow-md hover:shadow-lg transition-shadow duration-300">
-            <EyeIcon className="w-6 h-6 text-purple-600 mr-2" />
-            <p className="text-lg sm:text-xl font-mono font-bold text-purple-800 tracking-widest">
-              {formattedCount}
-            </p>
           </div>
         </div>
 

@@ -56,26 +56,39 @@
 // controllers/visitorController.js
 import Visitor from '../models/VisitorModel.js';
 
-// Get real client IP behind proxy
 const getClientIp = (req) => {
-  let ip = req.headers['x-forwarded-for']?.split(',')[0].trim()
-           || req.headers['x-real-ip']
-           || req.connection?.remoteAddress
-           || req.socket?.remoteAddress
-           || req.ip;
+  let ip = null;
 
-  if (ip.includes('::ffff:')) ip = ip.replace('::ffff:', '');
-  if (ip === '::1') ip = '127.0.0.1';
+  // 1. Trust x-forwarded-for (from Nginx)
+  if (req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'].split(',')[0].trim();
+  }
 
-  console.log('Detected IP:', ip); // Debug in production
+  // 2. Fallback to x-real-ip
+  if (!ip && req.headers['x-real-ip']) {
+    ip = req.headers['x-real-ip'].trim();
+  }
+
+  // 3. Fallback to connection (only if local)
+  if (!ip && req.connection.remoteAddress) {
+    ip = req.connection.remoteAddress;
+    if (ip.includes('::ffff:')) ip = ip.replace('::ffff:', '');
+  }
+
+  if (!ip || ip === '127.0.0.1' || ip === '::1') {
+    console.warn('IP detection failed, fallback to unknown');
+    return 'unknown';
+  }
+
+  console.log('Client IP:', ip);
   return ip;
 };
 
 export const logVisitor = async (req, res) => {
   try {
     const ip = getClientIp(req);
-    if (!ip || ip === '127.0.0.1') {
-      return res.status(400).json({ message: 'Invalid IP' });
+    if (ip === 'unknown') {
+      return res.status(400).json({ message: 'IP not detectable' });
     }
 
     const now = new Date();
@@ -87,16 +100,16 @@ export const logVisitor = async (req, res) => {
       await Visitor.findOneAndUpdate(
         { ip },
         { lastVisit: now },
-        { upsert: true, new: true }
+        { upsert: true, new: true, setDefaultsOnInsert: true }
       );
     }
 
     const totalCount = await Visitor.countDocuments();
-    console.log(`Visitor logged: ${ip}, Total: ${totalCount}`);
+    console.log(`New visit from ${ip} | Total: ${totalCount}`);
 
-    res.status(200).json({ totalCount });
+    res.json({ totalCount });
   } catch (error) {
-    console.error('Error in logVisitor:', error);
+    console.error('logVisitor error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -104,9 +117,9 @@ export const logVisitor = async (req, res) => {
 export const getVisitorCount = async (req, res) => {
   try {
     const totalCount = await Visitor.countDocuments();
-    res.status(200).json({ totalCount });
+    res.json({ totalCount });
   } catch (error) {
-    console.error('Error in getVisitorCount:', error);
+    console.error('getVisitorCount error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };

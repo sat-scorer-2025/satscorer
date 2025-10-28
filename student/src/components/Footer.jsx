@@ -128,40 +128,39 @@ const Footer = () => {
   // This will use VITE_API_URL from .env
   const baseURL = import.meta.env.VITE_API_URL;
 
-  useEffect(() => {
-    const hasVisited = localStorage.getItem('hasVisitedBefore');
+  // Footer.jsx (only change in useEffect)
+useEffect(() => {
+  console.log('VITE_API_URL:', baseURL); // DEBUG
 
-    const recordVisit = async () => {
-      try {
-        const response = await axios.post(`${baseURL}/api/visitor`, {}, {
-          headers: { 'Content-Type': 'application/json' }
-        });
-        if (response.data?.totalCount) {
-          setVisitorCount(response.data.totalCount);
-        }
-        localStorage.setItem('hasVisitedBefore', 'true');
-      } catch (error) {
-        console.error('Error logging visit:', error.response?.data || error.message);
-      }
-    };
+  const hasVisited = localStorage.getItem('hasVisitedBefore');
 
-    const fetchCount = async () => {
-      try {
-        const response = await axios.get(`${baseURL}/api/visitor/count`);
-        if (response.data?.totalCount) {
-          setVisitorCount(response.data.totalCount);
-        }
-      } catch (error) {
-        console.error('Error fetching visitor count:', error.response?.data || error.message);
-      }
-    };
-
-    if (!hasVisited) {
-      recordVisit();
-    } else {
-      fetchCount();
+  const recordVisit = async () => {
+    try {
+      console.log('Recording visit to:', `${baseURL}/api/visitor`);
+      const response = await axios.post(`${baseURL}/api/visitor`, {}, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      console.log('Visit logged:', response.data);
+      setVisitorCount(response.data.totalCount);
+      localStorage.setItem('hasVisitedBefore', 'true');
+    } catch (error) {
+      console.error('Visit log failed:', error.response?.data || error.message);
     }
-  }, [baseURL]);
+  };
+
+  const fetchCount = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/api/visitor/count`);
+      console.log('Count fetched:', response.data);
+      setVisitorCount(response.data.totalCount);
+    } catch (error) {
+      console.error('Count fetch failed:', error.response?.data || error.message);
+    }
+  };
+
+  if (!hasVisited) recordVisit();
+  else fetchCount();
+}, [baseURL]);
 
   const formattedCount = visitorCount.toString().padStart(5, '0');
 

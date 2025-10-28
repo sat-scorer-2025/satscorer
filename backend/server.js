@@ -246,6 +246,17 @@ app.get('/', (req, res) => {
   res.send('API WORKING');
 });
 
+app.get('/debug/ip', (req, res) => {
+  res.json({
+    ip: req.ip,
+    headers: {
+      'x-forwarded-for': req.headers['x-forwarded-for'],
+      'x-real-ip': req.headers['x-real-ip'],
+    },
+    connection: req.connection.remoteAddress
+  });
+});
+
 connectDB();
 connectCloudinary();
 scheduleNotifications(io);

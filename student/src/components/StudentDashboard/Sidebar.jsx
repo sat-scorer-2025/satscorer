@@ -74,7 +74,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         </div>
 
         {/* Title on desktop */}
-        <h2 className="text-lg sm:text-xl font-semibold mb-6 hidden md:block">
+        <h2 className="text-lg sm:text-xl font-semibold mb-6 mt-7 hidden md:block">
           {isViewCourse ? "Course Menu" : "Dashboard Menu"}
         </h2>
 

@@ -124,7 +124,7 @@ import axios from 'axios';
 const Footer = () => {
   const [visitorCount, setVisitorCount] = useState(0);
 
-  const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
+  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     const hasVisited = localStorage.getItem('visited');

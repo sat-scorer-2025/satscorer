@@ -1,7 +1,7 @@
 // src/pages/MyPayments.jsx
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../context/AuthContext';
-import { DocumentTextIcon } from '@heroicons/react/24/outline';
+import { DocumentTextIcon, CreditCardIcon, CalendarIcon, ClockIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Helmet } from 'react-helmet';
 import ReceiptDialog from '../components/ReceiptDialog';
 import DownloadReceipt from '../components/DownloadReceipt';
@@ -16,7 +16,7 @@ const MyPayments = () => {
   const paymentsPerPage = 10;
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-  // Fetch payment history
+  // Fetch payment history - only completed payments
   const fetchPayments = async () => {
     if (!user) return;
     setIsLoading(true);
@@ -25,9 +25,10 @@ const MyPayments = () => {
       const response = await fetchProtected(`${API_URL}/api/payment/mypayments`);
       const data = await response.json();
       if (response.ok) {
-        setPayments(data.payments || []);
-        // Debug: Log payments to inspect data structure
-        console.log('Payments:', JSON.stringify(data.payments, null, 2));
+        // Filter only completed payments
+        const completedPayments = (data.payments || []).filter(payment => payment.status === 'completed');
+        setPayments(completedPayments);
+        console.log('Completed Payments:', JSON.stringify(completedPayments, null, 2));
         setError(null);
       } else {
         setError(data.message || 'Failed to fetch payment history');
@@ -111,200 +112,200 @@ const MyPayments = () => {
       <Helmet>
         <title>My Payments | SATScorer</title>
       </Helmet>
-      <div className="min-h-screen bg-gray-100 py-4 sm:py-6 md:py-8 font-sans">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 xl:max-w-screen-2xl 2xl:max-w-screen-2xl">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">
-            My Payment History
-          </h1>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-6 sm:py-8 md:py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header Section */}
+          <div className="mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+              Payment History
+            </h1>
+            <p className="text-gray-600 text-sm sm:text-base">
+              View all your completed transactions and download receipts
+            </p>
+          </div>
+
+          {/* Stats Card */}
+          {!isLoading && !error && payments.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Total Payments</p>
+                    <p className="text-2xl font-bold text-gray-900 mt-1">{payments.length}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <CheckCircleIcon className="w-6 h-6 text-blue-600" />
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Total Spent</p>
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
+                      ₹{payments.reduce((sum, p) => sum + (p.amount || 0), 0).toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <CreditCardIcon className="w-6 h-6 text-green-600" />
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600">Courses Purchased</p>
+                    <p className="text-2xl font-bold text-gray-900 mt-1">
+                      {new Set(payments.map(p => p.courseId?._id)).size}
+                    </p>
+                  </div>
+                  <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <DocumentTextIcon className="w-6 h-6 text-purple-600" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {isLoading && (
-            <div className="flex justify-center items-center py-8">
-              <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-purple-500"></div>
+            <div className="flex flex-col justify-center items-center py-16">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600 mb-4"></div>
+              <p className="text-gray-600 font-medium">Loading your payments...</p>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 sm:mb-6" role="alert">
-              <p>{error}</p>
+            <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-6 mb-6 shadow-sm">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <svg className="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-red-800 font-medium">{error}</p>
+                </div>
+              </div>
             </div>
           )}
 
           {!isLoading && !error && payments.length === 0 && (
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md text-center">
-              <p className="text-gray-600 text-sm sm:text-base">No payment history found.</p>
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CreditCardIcon className="w-10 h-10 text-gray-400" />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No Payments Yet</h3>
+              <p className="text-gray-600">You haven't made any completed payments yet.</p>
             </div>
           )}
 
           {!isLoading && !error && payments.length > 0 && (
             <>
-              {/* Mobile View: Card Layout (visible on xs, hidden on sm+) */}
-              <div className="block sm:hidden space-y-4">
+              {/* Payment Cards - Grid Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
                 {currentPayments.map((payment, index) => (
-                  <div key={payment._id} className="bg-white rounded-lg shadow-md p-4">
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="text-sm font-semibold text-gray-700">S.No.: {indexOfFirstPayment + index + 1}</span>
-                      <span
-                        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                          payment.status === 'completed'
-                            ? 'bg-green-100 text-green-800'
-                            : payment.status === 'pending'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-red-100 text-red-800'
-                        }`}
-                      >
-                        {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
-                      </span>
-                    </div>
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <div className="flex justify-between">
-                        <span className="font-medium">Transaction ID:</span>
-                        <span>{payment.transactionId || 'N/A'}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">Course Name:</span>
-                        <span>{payment.courseId?.title || 'N/A'}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">Date:</span>
-                        <span>{formatDate(payment.paymentDate)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">Time:</span>
-                        <span>{formatTime(payment.paymentDate)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">Method:</span>
-                        <span>{formatPaymentMethod(payment.paymentMethod)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="font-medium">Amount:</span>
-                        <span>₹{payment.amount?.toFixed(2) || '0.00'}</span>
+                  <div key={payment._id} className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300">
+                    {/* Card Header */}
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                            <CheckCircleIcon className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <p className="text-white/80 text-xs font-medium">Payment #{indexOfFirstPayment + index + 1}</p>
+                            <p className="text-white text-lg font-bold">₹{payment.amount?.toFixed(2) || '0.00'}</p>
+                          </div>
+                        </div>
+                        <span className="inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                          Completed
+                        </span>
                       </div>
                     </div>
-                    <div className="mt-4 flex justify-end space-x-3">
-                      <button
-                        onClick={() => handleViewReceipt(payment)}
-                        className="text-purple-600 hover:text-purple-800 flex items-center text-sm"
-                        title="View Receipt"
-                      >
-                        <DocumentTextIcon className="w-4 h-4 mr-1" /> View
-                      </button>
-                      <DownloadReceipt transaction={payment} />
+
+                    {/* Card Body */}
+                    <div className="p-6">
+                      {/* Course Name */}
+                      <div className="mb-4">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                          {payment.courseId?.title || 'N/A'}
+                        </h3>
+                        <p className="text-sm text-gray-500">Transaction ID: {payment.transactionId || 'N/A'}</p>
+                      </div>
+
+                      {/* Payment Details */}
+                      <div className="space-y-3 mb-4">
+                        <div className="flex items-center gap-3 text-sm">
+                          <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <CalendarIcon className="w-4 h-4 text-blue-600" />
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-xs">Payment Date</p>
+                            <p className="text-gray-900 font-medium">{formatDate(payment.paymentDate)}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-sm">
+                          <div className="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <ClockIcon className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-xs">Payment Time</p>
+                            <p className="text-gray-900 font-medium">{formatTime(payment.paymentDate)}</p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-sm">
+                          <div className="w-8 h-8 bg-purple-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <CreditCardIcon className="w-4 h-4 text-purple-600" />
+                          </div>
+                          <div>
+                            <p className="text-gray-500 text-xs">Payment Method</p>
+                            <p className="text-gray-900 font-medium">{formatPaymentMethod(payment.paymentMethod)}</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Actions */}
+                      <div className="flex gap-3 pt-4 border-t border-gray-100">
+                        <button
+                          onClick={() => handleViewReceipt(payment)}
+                          className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors duration-200 font-medium text-sm"
+                        >
+                          <DocumentTextIcon className="w-4 h-4" />
+                          View Receipt
+                        </button>
+                        <DownloadReceipt transaction={payment} />
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              {/* Desktop/Tablet View: Table Layout (hidden on xs, visible on sm+) */}
-              <div className="hidden sm:block bg-white shadow-md rounded-lg overflow-hidden">
-                <div className="overflow-x-auto">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gradient-to-r from-purple-500 to-indigo-500">
-                      <tr>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          S.No.
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Transaction ID
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Course Name
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Payment Date
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Payment Time
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Payment Method
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Amount
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Status
-                        </th>
-                        <th className="px-2 py-3 sm:px-3 md:px-4 text-left text-xs font-medium text-white uppercase tracking-wider">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {currentPayments.map((payment, index) => (
-                        <tr key={payment._id} className="hover:bg-gray-50">
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            {indexOfFirstPayment + index + 1}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            {payment.transactionId || 'N/A'}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            {payment.courseId?.title || 'N/A'}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            {formatDate(payment.paymentDate)}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            {formatTime(payment.paymentDate)}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            {formatPaymentMethod(payment.paymentMethod)}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm text-gray-600">
-                            ₹{payment.amount?.toFixed(2) || '0.00'}
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap">
-                            <span
-                              className={`inline-flex px-1.5 py-0.5 sm:px-2 sm:py-1 text-xs font-semibold rounded-full ${
-                                payment.status === 'completed'
-                                  ? 'bg-green-100 text-green-800'
-                                  : payment.status === 'pending'
-                                  ? 'bg-yellow-100 text-yellow-800'
-                                  : 'bg-red-100 text-red-800'
-                              }`}
-                            >
-                              {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
-                            </span>
-                          </td>
-                          <td className="px-2 py-6 sm:px-3 md:px-4 whitespace-nowrap text-xs sm:text-sm font-medium">
-                            <div className="flex space-x-2 sm:space-x-3">
-                              <button
-                                onClick={() => handleViewReceipt(payment)}
-                                className="text-purple-600 hover:text-purple-800 flex items-center"
-                                title="View Receipt"
-                              >
-                                <DocumentTextIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-                              </button>
-                              <DownloadReceipt transaction={payment} />
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
               {/* Pagination Controls */}
-              <div className="flex justify-between items-center mt-4 sm:mt-6">
-                <button
-                  onClick={handlePrevPage}
-                  disabled={currentPage === 1}
-                  className="px-3 py-1 sm:px-4 sm:py-2 bg-purple-500 text-white rounded-md disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-purple-600 transition-all"
-                >
-                  Previous
-                </button>
-                <span className="text-sm text-gray-600">
-                  Page {currentPage} of {Math.ceil(payments.length / paymentsPerPage)}
-                </span>
-                <button
-                  onClick={handleNextPage}
-                  disabled={currentPage === Math.ceil(payments.length / paymentsPerPage)}
-                  className="px-3 py-1 sm:px-4 sm:py-2 bg-purple-500 text-white rounded-md disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-purple-600 transition-all"
-                >
-                  Next
-                </button>
+              <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-4">
+                <div className="text-sm text-gray-600 font-medium">
+                  Showing {indexOfFirstPayment + 1} to {Math.min(indexOfLastPayment, payments.length)} of {payments.length} payments
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700 transition-all font-medium text-sm shadow-sm"
+                  >
+                    Previous
+                  </button>
+                  <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium text-sm">
+                    Page {currentPage} of {Math.ceil(payments.length / paymentsPerPage)}
+                  </span>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === Math.ceil(payments.length / paymentsPerPage)}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-blue-700 transition-all font-medium text-sm shadow-sm"
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
             </>
           )}

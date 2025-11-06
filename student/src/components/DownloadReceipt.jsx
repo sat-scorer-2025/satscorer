@@ -14,148 +14,189 @@ import logo from '../assets/logo.png'; // Direct import of logo.png from assets 
 
 const styles = StyleSheet.create({
   page: {
-    padding: 20,
+    padding: 40,
     fontSize: 10,
     fontFamily: 'Helvetica',
     backgroundColor: '#ffffff',
-    color: '#111827',
+    color: '#000000',
   },
-  container: {
-    border: '1px solid #e5e7eb',
-    borderRadius: 8,
-    padding: 20,
-    minHeight: '100%',
-    position: 'relative',
+  // Header Section
+  header: {
+    borderBottom: '2pt solid #000000',
+    paddingBottom: 15,
+    marginBottom: 20,
   },
-  headerRow: {
+  headerTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
+    alignItems: 'flex-start',
+    marginBottom: 10,
   },
   logo: {
-    width: 180,
-    height: 90,
+    width: 120,
+    height: 60,
     objectFit: 'contain',
   },
   companyInfo: {
     textAlign: 'right',
+    fontSize: 9,
+  },
+  companyName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+  companyDetails: {
     fontSize: 8,
-    color: '#374151',
-    flexShrink: 1,
+    lineHeight: 1.4,
   },
-  invoiceTitleRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: 8,
+  // Title Section
+  titleSection: {
+    textAlign: 'center',
+    marginBottom: 20,
   },
-  invoiceLabel: {
-    fontSize: 16,
+  receiptTitle: {
+    fontSize: 20,
     fontWeight: 'bold',
-    letterSpacing: 1,
-    color: '#0f172a',
-    borderBottom: '2 solid #8b5cf6', // Matches purple theme
-    paddingBottom: 2,
-  },
-  section: {
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  sectionHeader: {
-    fontSize: 11,
-    fontWeight: 'bold',
+    letterSpacing: 2,
     marginBottom: 5,
-    color: '#0f172a',
   },
-  twoColumn: {
+  receiptSubtitle: {
+    fontSize: 9,
+    color: '#333333',
+  },
+  // Info Boxes
+  infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 20,
   },
-  billingBox: {
-    border: '1px solid #e5e7eb',
-    borderRadius: 6,
-    padding: 8,
+  infoBox: {
     width: '48%',
+    border: '1pt solid #000000',
+    padding: 10,
   },
-  billingText: {
+  infoBoxTitle: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    borderBottom: '1pt solid #000000',
+    paddingBottom: 4,
+  },
+  infoText: {
     fontSize: 9,
-    color: '#111827',
-    lineHeight: 1.4,
-    wordBreak: 'break-word',
+    lineHeight: 1.5,
+    marginBottom: 3,
+  },
+  infoLabel: {
+    fontWeight: 'bold',
+  },
+  // Table Section
+  tableSection: {
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    textTransform: 'uppercase',
   },
   table: {
-    display: 'table',
-    width: '100%',
-    borderCollapse: 'collapse',
-    marginTop: 8,
-    marginBottom: 8,
-    borderRadius: 6,
-    overflow: 'hidden',
-    border: '1px solid #e5e7eb',
+    border: '1pt solid #000000',
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    backgroundColor: '#000000',
+    color: '#ffffff',
   },
   tableRow: {
     flexDirection: 'row',
+    borderBottom: '1pt solid #000000',
   },
-  th: {
-    padding: 5,
-    borderRight: '1px solid #e5e7eb',
-    borderBottom: '1px solid #e5e7eb',
+  tableCell: {
+    padding: 8,
+    fontSize: 9,
+    borderRight: '1pt solid #000000',
+  },
+  tableCellHeader: {
+    padding: 8,
     fontSize: 9,
     fontWeight: 'bold',
-    backgroundColor: '#f3f4f6',
-    textAlign: 'center',
+    borderRight: '1pt solid #000000',
   },
-  td: {
-    padding: 5,
-    borderRight: '1px solid #e5e7eb',
-    borderBottom: '1px solid #e5e7eb',
-    fontSize: 9,
-    textAlign: 'center',
-    wordBreak: 'break-word',
-  },
-  right: {
-    textAlign: 'right',
+  // Totals Section
+  totalsSection: {
+    marginTop: 15,
+    marginBottom: 20,
   },
   totalsBox: {
+    marginLeft: 'auto',
+    width: '45%',
+    border: '1pt solid #000000',
+  },
+  totalRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 10,
+    justifyContent: 'space-between',
+    padding: 6,
+    borderBottom: '1pt solid #000000',
   },
-  totalsInner: {
-    width: '40%',
-    border: '1px solid #e5e7eb',
-    borderRadius: 6,
+  totalRowLast: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     padding: 8,
+    backgroundColor: '#000000',
+    color: '#ffffff',
   },
-  smallMuted: {
-    fontSize: 8,
-    color: '#6b7280',
+  totalLabel: {
+    fontSize: 9,
   },
-  watermark: {
-    position: 'absolute',
-    opacity: 0.05,
-    width: '60%',
-    left: '20%',
-    top: '30%',
+  totalValue: {
+    fontSize: 9,
+    fontWeight: 'bold',
   },
-  footerNote: {
-    marginTop: 16,
+  grandTotalLabel: {
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  grandTotalValue: {
+    fontSize: 11,
+    fontWeight: 'bold',
+  },
+  // Footer Section
+  footer: {
+    borderTop: '1pt solid #000000',
+    paddingTop: 15,
+    marginTop: 'auto',
+  },
+  footerText: {
     fontSize: 8,
     textAlign: 'center',
-    color: '#6b7280',
+    lineHeight: 1.5,
+    marginBottom: 5,
+  },
+  footerBold: {
+    fontWeight: 'bold',
+    fontSize: 9,
+  },
+  // Status
+  statusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  statusLabel: {
+    fontSize: 9,
+    fontWeight: 'bold',
+    marginRight: 5,
   },
   statusBadge: {
-    paddingVertical: 3,
-    paddingHorizontal: 6,
-    borderRadius: 10,
+    border: '1pt solid #000000',
+    paddingVertical: 2,
+    paddingHorizontal: 8,
     fontSize: 8,
-    textAlign: 'center',
-    color: '#fff',
-    minWidth: 60,
+    fontWeight: 'bold',
   },
-  statusCompleted: { backgroundColor: '#10b981' },
-  statusPending: { backgroundColor: '#f59e0b' },
-  statusFailed: { backgroundColor: '#ef4444' },
 });
 
 const formatINR = (value) => {
@@ -189,12 +230,6 @@ const DownloadReceipt = ({ transaction = {} }) => {
   const totalAmount = lineTotal;
   const dateTime = formatDateTime(transaction.paymentDate);
   const paymentStatus = transaction.status || 'pending';
-  const statusStyle =
-    paymentStatus === 'completed'
-      ? styles.statusCompleted
-      : paymentStatus === 'failed'
-      ? styles.statusFailed
-      : styles.statusPending;
   const invoiceNumber = transaction.transactionId || transaction.cashfreeOrderId || `INV_${Date.now()}`;
   const paymentMethod = transaction.paymentMethod
     ? transaction.paymentMethod
@@ -209,93 +244,106 @@ const DownloadReceipt = ({ transaction = {} }) => {
       document={
         <Document>
           <Page size="A4" style={styles.page}>
-            <View style={styles.container}>
-              <Image src={logo} style={styles.watermark} />
-              <View style={styles.headerRow}>
+            {/* Header Section */}
+            <View style={styles.header}>
+              <View style={styles.headerTop}>
                 <Image src={logo} style={styles.logo} />
                 <View style={styles.companyInfo}>
-                  <Text style={{ fontSize: 10, fontWeight: 'bold', color: '#0f172a' }}>SATScorer</Text>
-                  <Text style={{ marginTop: 2 }}>Phone: +91-7987340207</Text>
-                  <Text>Email: support@satscorer.com</Text>
-                  <Text>3207 - Sudama Nagar, E-Sector, Indore, Madhya Pradesh - 452009, India</Text>
+                  <Text style={styles.companyName}>SATSCORER</Text>
+                  <Text style={styles.companyDetails}>3207 - Sudama Nagar, E-Sector</Text>
+                  <Text style={styles.companyDetails}>Indore, Madhya Pradesh - 452009</Text>
+                  <Text style={styles.companyDetails}>India</Text>
+                  <Text style={[styles.companyDetails, { marginTop: 4 }]}>Phone: +91-7987340207</Text>
+                  <Text style={styles.companyDetails}>Email: support@satscorer.com</Text>
                 </View>
               </View>
+            </View>
 
-              <View style={styles.invoiceTitleRow}>
-                <Text style={styles.invoiceLabel}>PAYMENT RECEIPT</Text>
+            {/* Title Section */}
+            <View style={styles.titleSection}>
+              <Text style={styles.receiptTitle}>PAYMENT RECEIPT</Text>
+              <Text style={styles.receiptSubtitle}>Official Transaction Receipt</Text>
+            </View>
+
+            {/* Receipt Info and Customer Info */}
+            <View style={styles.infoRow}>
+              {/* Customer Information */}
+              <View style={styles.infoBox}>
+                <Text style={styles.infoBoxTitle}>Bill To</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Name:</Text> {user.name || 'N/A'}</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Email:</Text> {user.email || 'N/A'}</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Phone:</Text> {phone}</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Address:</Text> {user.address || 'N/A'}</Text>
               </View>
 
-              <View style={[styles.twoColumn, styles.section]}>
-                <View style={styles.billingBox}>
-                  <Text style={styles.sectionHeader}>Billed To</Text>
-                  <View style={styles.billingText}>
-                    <Text>{user.name || 'N/A'}</Text>
-                    <Text style={{ marginTop: 4 }}>{user.email || 'N/A'}</Text>
-                    <Text style={{ marginTop: 2 }}>{phone}</Text>
-                    <Text style={{ marginTop: 2 }}>{user.address || 'N/A'}</Text>
-                  </View>
-                </View>
-
-                <View style={styles.billingBox}>
-                  <Text style={styles.sectionHeader}>Payment Details</Text>
-                  <View style={styles.billingText}>
-                    <Text>Transaction ID: {transaction.transactionId || 'N/A'}</Text>
-                    <Text style={{ marginTop: 4 }}>Cashfree Order ID: {transaction.cashfreeOrderId || 'N/A'}</Text>
-                    <Text style={{ marginTop: 4 }}>Date: {dateTime.date}</Text>
-                    <Text style={{ marginTop: 2 }}>Time: {dateTime.time}</Text>
-                    <Text style={{ marginTop: 4 }}>Payment Method: {paymentMethod}</Text>
-                    <Text style={{ marginTop: 4 }}>
-                      Status: <Text style={[styles.statusBadge, statusStyle]}>{paymentStatus.toUpperCase()}</Text>
-                    </Text>
-                    <Text style={{ marginTop: 6, fontSize: 8, color: '#6b7280' }}>
-                      Note: This receipt is system-generated and does not require a signature.
-                    </Text>
-                  </View>
+              {/* Transaction Information */}
+              <View style={styles.infoBox}>
+                <Text style={styles.infoBoxTitle}>Transaction Details</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Receipt No:</Text> {invoiceNumber}</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Date:</Text> {dateTime.date}</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Time:</Text> {dateTime.time}</Text>
+                <Text style={styles.infoText}><Text style={styles.infoLabel}>Payment Method:</Text> {paymentMethod}</Text>
+                <View style={styles.statusRow}>
+                  <Text style={styles.statusLabel}>Status:</Text>
+                  <Text style={styles.statusBadge}>{paymentStatus.toUpperCase()}</Text>
                 </View>
               </View>
+            </View>
 
-              <View style={styles.section}>
-                <Text style={styles.sectionHeader}>Order Summary</Text>
-                <View style={styles.table}>
-                  <View style={styles.tableRow}>
-                    <Text style={[styles.th, { width: '8%' }]}>No.</Text>
-                    <Text style={[styles.th, { width: '45%' }]}>Course</Text>
-                    <Text style={[styles.th, { width: '14%' }]}>Exam</Text>
-                    <Text style={[styles.th, { width: '11%' }]}>Qty</Text>
-                    <Text style={[styles.th, { width: '11%' }]}>Rate</Text>
-                    <Text style={[styles.th, { width: '11%' }]}>Total</Text>
-                  </View>
-                  <View style={styles.tableRow}>
-                    <Text style={[styles.td, { width: '8%' }]}>1</Text>
-                    <Text style={[styles.td, { width: '45%', textAlign: 'left' }]}>{courseTitle}</Text>
-                    <Text style={[styles.td, { width: '14%' }]}>{examType}</Text>
-                    <Text style={[styles.td, { width: '11%' }]}>{quantity}</Text>
-                    <Text style={[styles.td, { width: '11%', textAlign: 'right' }]}>₹{formatINR(rate)}</Text>
-                    <Text style={[styles.td, { width: '11%', textAlign: 'right' }]}>₹{formatINR(lineTotal)}</Text>
-                  </View>
+            {/* Order ID Section */}
+            <View style={{ marginBottom: 15 }}>
+              <Text style={styles.infoText}><Text style={styles.infoLabel}>Transaction ID:</Text> {transaction.transactionId || 'N/A'}</Text>
+              <Text style={styles.infoText}><Text style={styles.infoLabel}>Cashfree Order ID:</Text> {transaction.cashfreeOrderId || 'N/A'}</Text>
+            </View>
+
+            {/* Items Table */}
+            <View style={styles.tableSection}>
+              <Text style={styles.sectionTitle}>Items Purchased</Text>
+              <View style={styles.table}>
+                {/* Table Header */}
+                <View style={styles.tableHeader}>
+                  <Text style={[styles.tableCellHeader, { width: '10%', textAlign: 'center' }]}>Sr. No.</Text>
+                  <Text style={[styles.tableCellHeader, { width: '45%' }]}>Description</Text>
+                  <Text style={[styles.tableCellHeader, { width: '15%' }]}>Exam Type</Text>
+                  <Text style={[styles.tableCellHeader, { width: '10%', textAlign: 'center' }]}>Qty</Text>
+                  <Text style={[styles.tableCellHeader, { width: '20%', textAlign: 'right', borderRight: 'none' }]}>Amount (₹)</Text>
                 </View>
-
-                <View style={styles.totalsBox}>
-                  <View style={styles.totalsInner}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
-                      <Text style={styles.smallMuted}>Subtotal</Text>
-                      <Text style={styles.smallMuted}>₹{formatINR(totalAmount)}</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 }}>
-                      <Text style={styles.smallMuted}>GST (included)</Text>
-                      <Text style={styles.smallMuted}>—</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', fontWeight: 'bold' }}>
-                      <Text>Total</Text>
-                      <Text>₹{formatINR(totalAmount)}</Text>
-                    </View>
-                  </View>
+                {/* Table Row */}
+                <View style={styles.tableRow}>
+                  <Text style={[styles.tableCell, { width: '10%', textAlign: 'center' }]}>1</Text>
+                  <Text style={[styles.tableCell, { width: '45%' }]}>{courseTitle}</Text>
+                  <Text style={[styles.tableCell, { width: '15%' }]}>{examType}</Text>
+                  <Text style={[styles.tableCell, { width: '10%', textAlign: 'center' }]}>{quantity}</Text>
+                  <Text style={[styles.tableCell, { width: '20%', textAlign: 'right', borderRight: 'none' }]}>{formatINR(rate)}</Text>
                 </View>
               </View>
+            </View>
 
-              <Text style={styles.footerNote}>
-                If you have questions about this receipt, contact support@satscorer.com or +91-7987340207.
-              </Text>
+            {/* Totals Section */}
+            <View style={styles.totalsSection}>
+              <View style={styles.totalsBox}>
+                <View style={styles.totalRow}>
+                  <Text style={styles.totalLabel}>Subtotal:</Text>
+                  <Text style={styles.totalValue}>₹ {formatINR(totalAmount)}</Text>
+                </View>
+                <View style={styles.totalRow}>
+                  <Text style={styles.totalLabel}>Tax (GST Included):</Text>
+                  <Text style={styles.totalValue}>—</Text>
+                </View>
+                <View style={styles.totalRowLast}>
+                  <Text style={styles.grandTotalLabel}>TOTAL PAID:</Text>
+                  <Text style={styles.grandTotalValue}>₹ {formatINR(totalAmount)}</Text>
+                </View>
+              </View>
+            </View>
+
+            {/* Footer Section */}
+            <View style={styles.footer}>
+              <Text style={styles.footerBold}>Terms & Conditions:</Text>
+              <Text style={styles.footerText}>• This is a computer-generated receipt and does not require a physical signature.</Text>
+              <Text style={styles.footerText}>• All payments are non-refundable unless otherwise stated in our refund policy.</Text>
+              <Text style={styles.footerText}>• For any queries, please contact us at support@satscorer.com or +91-7987340207.</Text>
+              <Text style={[styles.footerText, { marginTop: 10, fontWeight: 'bold' }]}>Thank you for your payment!</Text>
             </View>
           </Page>
         </Document>

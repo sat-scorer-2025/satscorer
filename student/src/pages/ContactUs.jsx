@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import { Mail, Phone, MapPin, Twitter, Instagram, Linkedin, MessageCircle } from 'lucide-react';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -198,7 +199,9 @@ const ContactUs = () => {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <span className="text-blue-500 mr-2">✉️</span>
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <Mail className="w-5 h-5 text-blue-600" />
+                  </div>
                   <p>
                     <a
                       href="mailto:support@satscorer.com"
@@ -209,7 +212,9 @@ const ContactUs = () => {
                   </p>
                 </div>
                 <div className="flex items-center">
-                  <span className="text-blue-500 mr-2">📞</span>
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                    <Phone className="w-5 h-5 text-green-600" />
+                  </div>
                   <p>
                     <a
                       href="tel:+917987340207"
@@ -220,7 +225,9 @@ const ContactUs = () => {
                   </p>
                 </div>
                 <div className="flex items-start">
-                  <span className="text-blue-500 mr-2">🏢</span>
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-orange-600" />
+                  </div>
                   <p className="text-navy-900">
                     3207, SUDAMA NAGAR, SECTOR E,<br />
                     INDORE, MADHYA PRADESH - 452009
@@ -230,33 +237,45 @@ const ContactUs = () => {
 
               {/* Social Media Links */}
               <div className="mt-6">
-                <h4 className="text-lg font-medium text-navy-900 mb-2">
+                <h4 className="text-lg font-medium text-navy-900 mb-3">
                   Follow Us
                 </h4>
-                <div className="flex space-x-4">
+                <div className="flex flex-col gap-3">
                   <a
-                    href="https://twitter.com/satscorer"
+                    href="https://x.com/Praveen65488161"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
+                    className="flex items-center gap-3 px-4 py-3 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-all duration-300"
                   >
-                    🐦 Twitter
+                    <Twitter className="w-5 h-5" />
+                    <span className="font-medium">Twitter</span>
                   </a>
                   <a
-                    href="https://instagram.com/satscorer"
+                    href="https://instagram.com/praveenshrivastava23"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
+                    className="flex items-center gap-3 px-4 py-3 bg-pink-100 text-pink-600 rounded-lg hover:bg-pink-200 transition-all duration-300"
                   >
-                    📸 Instagram
+                    <Instagram className="w-5 h-5" />
+                    <span className="font-medium">Instagram</span>
                   </a>
                   <a
-                    href="https://linkedin.com/company/satscorer"
+                    href="https://linkedin.com/in/praveen-shrivastava-821bb4233"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
+                    className="flex items-center gap-3 px-4 py-3 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-all duration-300"
                   >
-                    💼 LinkedIn
+                    <Linkedin className="w-5 h-5" />
+                    <span className="font-medium">LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://wa.me/917987340207"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-3 bg-green-100 text-green-600 rounded-lg hover:bg-green-200 transition-all duration-300"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    <span className="font-medium">WhatsApp</span>
                   </a>
                 </div>
               </div>

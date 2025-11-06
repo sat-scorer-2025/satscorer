@@ -69,12 +69,12 @@ const TestSection = () => {
                   <div className="hidden sm:block text-sm md:text-base lg:text-lg text-gray-600 mb-2 sm:mb-3 md:mb-4 font-[Poppins] font-normal">
                     {test.description}
                   </div>
-                  <button
+                  {/* <button
                     onClick={() => handleTryFreeTest(test.name)}
                     className="bg-gradient-to-r from-indigo-500 to-indigo-700 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm md:text-base font-semibold hover:from-indigo-600 hover:to-indigo-800 hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
                   >
                     Try Free test
-                  </button>
+                  </button> */}
                 </div>
               </div>
             ))}

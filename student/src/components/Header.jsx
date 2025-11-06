@@ -198,7 +198,18 @@ const Header = ({ onMenuClick }) => {
               onClick={toggleMenu}
               aria-label="Toggle Menu"
             >
-              {isMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+              <div className="relative w-6 h-6">
+                <Bars3Icon 
+                  className={`w-6 h-6 absolute inset-0 transition-all duration-300 ${
+                    isMenuOpen ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
+                  }`} 
+                />
+                <XMarkIcon 
+                  className={`w-6 h-6 absolute inset-0 transition-all duration-300 ${
+                    isMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+                  }`} 
+                />
+              </div>
             </button>
 
             <Link to="/" className="flex items-center">
@@ -216,9 +227,12 @@ const Header = ({ onMenuClick }) => {
             <nav
               className={`${
                 isMenuOpen
-                  ? 'flex flex-col absolute top-14 sm:top-16 left-0 right-0 bg-purple-400 backdrop-blur-md shadow-xl border-b border-purple-200 rounded-b-xl transition-all duration-300 ease-in-out p-3 sm:p-4 md:hidden'
+                  ? 'flex flex-col absolute top-full left-0 right-0 bg-purple-400 backdrop-blur-md shadow-xl border-b border-purple-200 rounded-b-xl p-3 sm:p-4 md:hidden animate-slideDown'
                   : 'hidden md:flex md:items-center md:space-x-1 lg:space-x-2 xl:space-x-3'
               }`}
+              style={{
+                animation: isMenuOpen ? 'slideDown 0.3s ease-out forwards' : 'none'
+              }}
             >
               {isViewCourse ? (
                 // Mobile menu for view course routes
@@ -405,6 +419,31 @@ const Header = ({ onMenuClick }) => {
           </div>
         </div>
       </header>
+
+      {/* Keyframe Animations */}
+      <style jsx>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideUp {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+        }
+      `}</style>
     </>
   );
 };

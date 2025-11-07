@@ -10,83 +10,6 @@ const Footer = () => {
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
-  // Generate or retrieve unique visitor ID
-  const getVisitorId = () => {
-    let visitorId = localStorage.getItem('visitor_id');
-    
-    if (!visitorId) {
-      // Generate unique ID using timestamp + random string
-      visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('visitor_id', visitorId);
-    }
-    
-    return visitorId;
-  };
-
-  // Track visitor and get count
-  useEffect(() => {
-    const trackAndFetchCount = async () => {
-      try {
-        const visitorId = getVisitorId();
-
-        // Track this visitor
-        await fetch(`${API_URL}/api/visitor/track`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ visitorId }),
-        });
-
-        // Fetch total visitor count
-        const response = await fetch(`${API_URL}/api/visitor/count`);
-        const data = await response.json();
-        
-        if (data.success) {
-          setVisitorCount(data.totalVisitors);
-        }
-      } catch (error) {
-        console.error('Error tracking visitor:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    trackAndFetchCount();
-  }, []);
-
-  // Animate count from 9999 to actual count
-  useEffect(() => {
-    if (!loading && visitorCount > 0) {
-      const duration = 2000; // 2 seconds animation
-      const steps = 60; // 60 frames
-      const stepDuration = duration / steps;
-      const decrement = (9999 - visitorCount) / steps;
-      
-      let currentStep = 0;
-      const timer = setInterval(() => {
-        currentStep++;
-        const newCount = Math.max(
-          visitorCount,
-          Math.floor(9999 - decrement * currentStep)
-        );
-        setDisplayCount(newCount);
-        
-        if (newCount <= visitorCount) {
-          setDisplayCount(visitorCount);
-          clearInterval(timer);
-        }
-      }, stepDuration);
-
-      return () => clearInterval(timer);
-    }
-  }, [loading, visitorCount]);
-
-  // Format number to 4 digits with leading zeros
-  const formatNumber = (num) => {
-    return num.toString().padStart(4, '0');
-  };
-
   return (
     <footer className="bg-gradient-to-b from-10% from-purple-400 via-purple-300 to-indigo-200 text-white w-full py-8 sm:py-10 md:py-12 lg:py-16 border-t border-purple-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -177,40 +100,6 @@ const Footer = () => {
                   <FaFacebook className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6" />
                 </a>
 
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Visitor Counter */}
-        <div className="mt-6 sm:mt-8 flex justify-center">
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg p-3 shadow-lg">
-            <div className="flex items-center gap-2">
-              <div className="bg-white/10 p-1.5 rounded">
-                <FaEye className="text-white text-sm" />
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <span className="text-[10px] text-white/70 font-medium uppercase tracking-wide">Visitors</span>
-                <div className="flex gap-0.5">
-                  {loading ? (
-                    <div className="flex gap-0.5">
-                      {[...Array(4)].map((_, i) => (
-                        <div key={i} className="w-5 h-7 bg-white/20 rounded animate-pulse"></div>
-                      ))}
-                    </div>
-                  ) : (
-                    formatNumber(displayCount).split('').map((digit, index) => (
-                      <div
-                        key={index}
-                        className="w-5 h-7 bg-white rounded flex items-center justify-center shadow-sm"
-                      >
-                        <span className="text-base font-bold text-indigo-600">
-                          {digit}
-                        </span>
-                      </div>
-                    ))
-                  )}
-                </div>
               </div>
             </div>
           </div>

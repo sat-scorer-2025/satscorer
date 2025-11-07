@@ -136,34 +136,77 @@ const FreeTest = () => {
 
   if (error) {
     return (
-      <div className="text-center text-red-600 py-16">
-        <p className="text-lg font-['Inter',sans-serif] font-semibold">{error}</p>
-        <button
-          onClick={() => navigate('/')}
-          className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Back to Home
-        </button>
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="max-w-lg w-full text-center">
+          {/* Icon */}
+          <div className="mx-auto w-24 h-24 mb-8">
+            <svg className="w-full h-full text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-['Poppins']">
+            No Free Test Available
+          </h1>
+          
+          {/* Message */}
+          <p className="text-lg text-gray-600 mb-10 max-w-md mx-auto">
+            {error}
+          </p>
+          
+          {/* Button */}
+          <button
+            onClick={() => navigate('/')}
+            className="inline-flex items-center px-8 py-3 bg-indigo-600 text-white text-lg font-medium rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Back to Home
+          </button>
+        </div>
       </div>
     );
   }
 
   if (attemptsExceeded) {
     return (
-      <div className="text-center text-red-600 py-16">
-        <p className="text-lg font-['Inter',sans-serif] font-semibold">Maximum attempts reached for this test.</p>
-        <button
-          onClick={() => navigate(`/free-test-result/${examType}`, { state: { testId: test._id } })}
-          className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          Review Test
-        </button>
-        <button
-          onClick={() => navigate('/')}
-          className="mt-4 ml-4 px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-        >
-          Back to Home
-        </button>
+      <div className="min-h-screen bg-white flex items-center justify-center px-4">
+        <div className="max-w-lg w-full text-center">
+          {/* Icon */}
+          <div className="mx-auto w-24 h-24 mb-8">
+            <svg className="w-full h-full text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 font-['Poppins']">
+            Maximum Limits Reached
+          </h1>
+          
+          {/* Message */}
+          <p className="text-lg text-gray-600 mb-10 max-w-md mx-auto">
+            You've completed all available attempts for this test.
+          </p>
+          
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+            <button
+              onClick={() => navigate(`/free-test-result/${examType}`, { state: { testId: test._id } })}
+              className="px-6 py-3 bg-indigo-600 text-white text-lg font-medium rounded-lg hover:bg-indigo-700 transition-colors duration-200"
+            >
+              Review Test
+            </button>
+            <button
+              onClick={() => navigate('/')}
+              className="px-6 py-3 bg-gray-200 text-gray-800 text-lg font-medium rounded-lg hover:bg-gray-300 transition-colors duration-200"
+            >
+              Home
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

@@ -420,6 +420,26 @@ const Header = ({ onMenuClick }) => {
         </div>
       </header>
 
+      {isHomePage && (
+        <div className="w-full bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white overflow-hidden shadow-md border-t border-indigo-300">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-2 sm:py-3">
+            <div className="relative w-full overflow-hidden">
+              <div className="marquee inline-block whitespace-nowrap text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold tracking-wide">
+                <span className="mr-12 sm:mr-24">
+                  A Perfect site for Aspirants of SAT, GRE and GMAT
+                </span>
+                <span className="mr-12 sm:mr-24">
+                  A Perfect site for Aspirants of SAT, GRE and GMAT
+                </span>
+                <span className="mr-12 sm:mr-24">
+                  A Perfect site for Aspirants of SAT, GRE and GMAT
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Keyframe Animations */}
       <style jsx>{`
         @keyframes slideDown {
@@ -442,6 +462,15 @@ const Header = ({ onMenuClick }) => {
             opacity: 0;
             transform: translateY(-20px);
           }
+        }
+
+        @keyframes marquee {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+
+        .marquee {
+          animation: marquee 18s linear infinite;
         }
       `}</style>
     </>

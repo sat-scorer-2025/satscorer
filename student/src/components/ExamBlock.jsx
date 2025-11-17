@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Import exam images from assets folder
@@ -31,20 +31,6 @@ const ExamBlock = () => {
     },
   ];
 
-  const scrollRef = useRef(null);
-
-  const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -256, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 256, behavior: 'smooth' });
-    }
-  };
-
   return (
     <>
       <link
@@ -59,27 +45,12 @@ const ExamBlock = () => {
           <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-center text-gray-600 mt-3 sm:mt-4 md:mt-5 mb-6 sm:mb-8 md:mb-10 font-[Poppins] font-medium">
             Explore tailored courses for SAT, GRE, GMAT, and more to achieve your goals.
           </p>
-          <div className="flex items-center justify-center mb-6 sm:mb-8 md:mb-10">
-            <button
-              onClick={scrollLeft}
-              className="hidden sm:flex text-blue-400 w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14 flex items-center justify-center rounded-xl hover:text-blue-500 hover:scale-105 transition-all duration-300 ease-in-out mr-4 sm:mr-6"
-              aria-label="Scroll Left"
-            >
-              ❮
-            </button>
-            <div
-              ref={scrollRef}
-              className="grid grid-cols-2 sm:flex gap-3 sm:gap-4 sm:overflow-x-auto overflow-y-hidden sm:scrollbar-hidden w-full"
-            >
-              <style>{`
-                .scrollbar-hidden::-webkit-scrollbar {
-                  display: none;
-                }
-              `}</style>
+          <div className="mb-6 sm:mb-8 md:mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 w-full">
               {exams.map((exam) => (
                 <div
                   key={exam.name}
-                  className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-[1px] flex-none w-full sm:w-60 md:w-64 lg:w-72 sm:max-w-none"
+                  className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-[1px] w-full"
                 >
                   <div className="bg-white rounded-xl p-3 sm:p-4 md:p-6 flex flex-col items-center text-center h-full hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out">
                     <div className="w-24 sm:w-20 md:w-24 h-24 sm:h-20 md:h-24 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-2 sm:mb-3 md:mb-4 overflow-hidden">
@@ -101,13 +72,6 @@ const ExamBlock = () => {
                 </div>
               ))}
             </div>
-            <button
-              onClick={scrollRight}
-              className="hidden sm:flex text-blue-400 w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14 flex items-center justify-center rounded-xl hover:text-blue-500 hover:scale-105 transition-all duration-300 ease-in-out ml-4 sm:ml-6"
-              aria-label="Scroll Right"
-            >
-              ❯
-            </button>
           </div>
         </div>
       </section>

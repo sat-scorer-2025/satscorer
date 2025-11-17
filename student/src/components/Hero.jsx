@@ -103,7 +103,7 @@ const Hero = () => {
 
           {/* Small Stats */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mt-2 sm:mt-4 text-gray-600 font-medium text-xs sm:text-sm">
-            <p>🎓 2000+ Students Trained</p>
+            <p>🎓 20,000+ Students Trained</p>
             <span className="hidden sm:block">•</span>
             <p>👨‍🏫 Trusted by 50+ Expert Mentors</p>
           </div>

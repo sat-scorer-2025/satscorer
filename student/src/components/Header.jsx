@@ -421,10 +421,10 @@ const Header = ({ onMenuClick }) => {
       </header>
 
       {isHomePage && (
-        <div className="w-full bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 text-white overflow-hidden shadow-md border-t border-indigo-300">
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-2 sm:py-3">
+        <div className="w-full bg-gradient-to-r from-indigo-200 via-purple-100 to-indigo-200 text-indigo-900 overflow-hidden shadow-md border-t border-indigo-300/60">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-2.5 sm:py-3.5">
             <div className="relative w-full overflow-hidden">
-              <div className="marquee inline-block whitespace-nowrap text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold tracking-wide">
+              <div className="marquee inline-block whitespace-nowrap text-[11px] sm:text-sm md:text-base font-semibold tracking-wide">
                 <span className="mr-12 sm:mr-24">
                   A Perfect site for Aspirants of SAT, GRE and GMAT
                 </span>
@@ -470,7 +470,7 @@ const Header = ({ onMenuClick }) => {
         }
 
         .marquee {
-          animation: marquee 18s linear infinite;
+          animation: marquee 28s linear infinite;
         }
       `}</style>
     </>

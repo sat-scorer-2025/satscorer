@@ -35,6 +35,10 @@ const TestSection = () => {
   const [selectedTestType, setSelectedTestType] = useState(null);
 
   const handleTryFreeTest = (testName) => {
+    if (testName !== 'Mock Tests') {
+      return;
+    }
+
     setSelectedTestType(typeMap[testName]);
     setIsModalOpen(true);
   };
@@ -71,9 +75,13 @@ const TestSection = () => {
                   </div>
                   <button
                     onClick={() => handleTryFreeTest(test.name)}
-                    className="bg-gradient-to-r from-indigo-500 to-indigo-700 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm md:text-base font-semibold hover:from-indigo-600 hover:to-indigo-800 hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out"
+                    className={`bg-gradient-to-r from-indigo-500 to-indigo-700 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm md:text-base font-semibold hover:from-indigo-600 hover:to-indigo-800 hover:shadow-lg hover:scale-105 transition-all duration-300 ease-in-out ${
+                      test.name !== 'Mock Tests'
+                        ? 'w-24 sm:w-32 h-8 sm:h-10 px-8 sm:px-10 py-4 sm:py-5'
+                        : ''
+                    }`}
                   >
-                    Try Free test
+                    {test.name === 'Mock Tests' ? 'Try Free test' : ''}
                   </button>
                 </div>
               </div>

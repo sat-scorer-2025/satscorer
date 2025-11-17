@@ -267,7 +267,7 @@ const Header = ({ onMenuClick }) => {
                   {/* Exams Dropdown */}
                   <div ref={examsDropdownRef} className="relative inline-block">
                     <button
-                      className="flex items-center justify-between w-full px-2 py-2 rounded-lg hover:bg-purple-100 hover:text-purple-700 text-sm md:text-base font-medium transition-all duration-200"
+                      className="flex items-center justify-between w-full px-2 py-2 rounded-lg text-purple-950 hover:bg-purple-100 hover:text-purple-900 text-sm md:text-base font-medium transition-all duration-200"
                       onClick={toggleExamsDropdown}
                     >
                       Exams
@@ -318,14 +318,14 @@ const Header = ({ onMenuClick }) => {
 
                   <Link
                     to="/aboutus"
-                    className="px-2 py-2 rounded-lg hover:bg-purple-100 hover:text-purple-700 text-sm md:text-base font-medium transition-all duration-200"
+                    className="px-2 py-2 rounded-lg text-purple-950 hover:bg-purple-100 hover:text-purple-900 text-sm md:text-base font-medium transition-all duration-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     About Us
                   </Link>
                   <Link
                     to="/contactus"
-                    className="px-2 py-2 rounded-lg hover:bg-purple-100 hover:text-purple-700 text-sm md:text-base font-medium transition-all duration-200"
+                    className="px-2 py-2 rounded-lg text-purple-950 hover:bg-purple-100 hover:text-purple-900 text-sm md:text-base font-medium transition-all duration-200"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Contact Us
@@ -340,7 +340,7 @@ const Header = ({ onMenuClick }) => {
                 <div className="relative hidden md:block" ref={notificationRef}>
                   <button
                     onClick={toggleNotificationDialog}
-                    className="relative p-2 rounded-full hover:bg-purple-100 hover:text-purple-700 transition-all duration-200"
+                    className="relative p-2 rounded-full text-purple-950 hover:bg-purple-100 hover:text-purple-900 transition-all duration-200"
                   >
                     <BellIcon className="w-4 sm:w-5 h-4 sm:h-5" />
                     {notifications.length > 0 && (
@@ -350,7 +350,7 @@ const Header = ({ onMenuClick }) => {
                   <NotificationDialog isOpen={isNotificationOpen} onClose={() => setIsNotificationOpen(false)} />
                 </div>
 
-                <span className="hidden sm:inline text-xs sm:text-sm md:text-base font-semibold text-gray-100 transition-opacity duration-300 hover:opacity-80">
+                <span className="hidden sm:inline text-xs sm:text-sm md:text-base font-semibold text-purple-950 transition-opacity duration-300 hover:text-purple-900">
                   Hi, {studentName}
                 </span>
 

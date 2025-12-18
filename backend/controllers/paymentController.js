@@ -828,161 +828,178 @@ const updatePaymentStatus = async (req, res) => {
 };
 
 const verifyPayment = async (req, res) => {
-  try {
-    const { orderId, courseId, userId } = req.body;
+try {
+const { orderId, courseId } = req.body;
+const userId = req.user?.userId;
 
-    if (!orderId || !mongoose.isValidObjectId(courseId) || !mongoose.isValidObjectId(userId)) {
-      return res.status(400).json({ message: `Invalid order ID, course ID, or user ID` });
-    }
+if (!orderId || !mongoose.isValidObjectId(courseId) || !mongoose.isValidObjectId(userId)) {
+return res.status(400).json({ message: `Invalid order ID, course ID, or user ID` });
+}
 
-    const paymentRecord = await PaymentModel.findOne({ cashfreeOrderId: orderId });
-    if (!paymentRecord) {
-      return res.status(404).json({ message: 'Payment not found' });
-    }
+const paymentRecord = await PaymentModel.findOne({ cashfreeOrderId: orderId });
+if (!paymentRecord) {
+return res.status(404).json({ message: 'Payment not found' });
+}
 
-    if (paymentRecord.status === 'completed') {
-      return res.status(200).json({ message: 'Payment already processed and user enrolled' });
-    }
+// Ensure the payment belongs to the authenticated user and course
+if (
+paymentRecord.userId.toString() !== userId.toString() ||
+paymentRecord.courseId.toString() !== courseId.toString()
+) {
+return res.status(400).json({ message: 'Payment record does not match user or course' });
+}
 
-    // Fetch payment details from Cashfree /orders/{orderId}/payments
-    const paymentResponse = await axios.get(`${CASHFREE_API_URL}/orders/${orderId}/payments`, {
-      headers: {
-        'x-api-version': '2023-08-01',
-        'x-client-id': CASHFREE_APP_ID,
-        'x-client-secret': CASHFREE_SECRET_KEY,
-      },
-    });
+if (paymentRecord.status === 'completed') {
+return res.status(200).json({ message: 'Payment already processed and user enrolled' });
+}
 
-    console.log('Verify payment full response:', JSON.stringify(paymentResponse.data, null, 2));
+// Fetch payment details from Cashfree /orders/{orderId}/payments
+let paymentResponse;
+try {
+paymentResponse = await axios.get(`${CASHFREE_API_URL}/orders/${orderId}/payments`, {
+headers: {
+'x-api-version': '2023-08-01',
+'x-client-id': CASHFREE_APP_ID,
+'x-client-secret': CASHFREE_SECRET_KEY,
+},
+});
+} catch (gatewayError) {
+console.error(
+'Error calling Cashfree payments API during verification:',
+gatewayError.response?.data || gatewayError.message
+);
+return res.status(400).json({
+message: 'Payment verification failed with payment gateway',
+error: gatewayError.response?.data || gatewayError.message,
+});
+}
 
-    // Handle both possible response structures
-    const paymentData = Array.isArray(paymentResponse.data) ? paymentResponse.data[0] : paymentResponse.data?.data?.[0];
-    if (!paymentData) {
-      console.error('No payment data found in response:', paymentResponse.data);
-      paymentRecord.status = 'failed';
-      await paymentRecord.save();
-      return res.status(400).json({ message: 'Payment not completed' });
-    }
+console.log('Verify payment full response:', JSON.stringify(paymentResponse.data, null, 2));
 
-    if (paymentData.payment_status !== 'SUCCESS') {
-      console.error('Payment not successful:', { payment_status: paymentData.payment_status });
-      paymentRecord.status = 'failed';
-      await paymentRecord.save();
-      return res.status(400).json({ message: 'Payment not completed' });
-    }
+// Handle both possible response structures
+const paymentData = Array.isArray(paymentResponse.data)
+? paymentResponse.data[0]
+: paymentResponse.data?.data?.[0];
+if (!paymentData) {
+console.error('No payment data found in response:', paymentResponse.data);
+paymentRecord.status = 'failed';
+await paymentRecord.save();
+return res.status(400).json({ message: 'Payment not completed' });
+}
 
-    // Extract payment method
-    let paymentMethod = 'unknown';
-    if (paymentData.payment_group) {
-      const paymentGroup = paymentData.payment_group.toLowerCase();
-      switch (paymentGroup) {
-        case 'debit_card':
-          paymentMethod = 'debit card';
-          break;
-        case 'credit_card':
-          paymentMethod = 'credit card';
-          break;
-        case 'upi':
-          paymentMethod = 'upi';
-          break;
-        case 'net_banking':
-          paymentMethod = 'netbanking';
-          break;
-        case 'wallet':
-          paymentMethod = 'wallet';
-          break;
-        default:
-          console.warn('Unknown payment_group:', paymentGroup);
-          paymentMethod = 'unknown';
-      }
-    } else if (paymentData.payment_method) {
-      paymentMethod = Object.keys(paymentData.payment_method)[0]?.toLowerCase() || 'unknown';
-    }
-    console.log('Verify payment method extracted:', {
-      paymentMethod,
-      sources: {
-        paymentGroup: paymentData.payment_group,
-        paymentMethodObj: paymentData.payment_method ? Object.keys(paymentData.payment_method)[0] : null,
-      },
-    });
+if (paymentData.payment_status !== 'SUCCESS') {
+console.error('Payment not successful:', { payment_status: paymentData.payment_status });
+paymentRecord.status = 'failed';
+await paymentRecord.save();
+return res.status(400).json({ message: 'Payment not completed' });
+}
 
-    // Extract transaction ID
-    const transactionId = paymentData.cf_payment_id?.toString() || 'N/A';
-    console.log('Verify transaction ID extracted:', { transactionId, source: paymentData.cf_payment_id });
+// Extract payment method
+let paymentMethod = 'unknown';
+if (paymentData.payment_group) {
+const paymentGroup = paymentData.payment_group.toLowerCase();
+switch (paymentGroup) {
+case 'debit_card':
+paymentMethod = 'debit card';
+break;
+case 'credit_card':
+paymentMethod = 'credit card';
+break;
+case 'upi':
+paymentMethod = 'upi';
+break;
+case 'net_banking':
+paymentMethod = 'netbanking';
+break;
+case 'wallet':
+paymentMethod = 'wallet';
+break;
+default:
+console.warn('Unknown payment_group:', paymentGroup);
+paymentMethod = 'unknown';
+}
+} else if (paymentData.payment_method) {
+paymentMethod = Object.keys(paymentData.payment_method)[0]?.toLowerCase() || 'unknown';
+}
+console.log('Verify payment method extracted:', {
+paymentMethod,
+sources: {
+paymentGroup: paymentData.payment_group,
+paymentMethodObj: paymentData.payment_method ? Object.keys(paymentData.payment_method)[0] : null,
+},
+});
 
-    const session = await mongoose.startSession();
-    try {
-      await session.withTransaction(async () => {
-        paymentRecord.status = 'completed';
-        paymentRecord.paymentDate = new Date();
-        paymentRecord.transactionId = transactionId;
-        paymentRecord.paymentMethod = paymentMethod;
-        await paymentRecord.save({ session });
+// Extract transaction ID
+const transactionId = paymentData.cf_payment_id?.toString() || 'N/A';
+console.log('Verify transaction ID extracted:', { transactionId, source: paymentData.cf_payment_id });
 
-        const existingEnrollment = await EnrollmentModel.findOne({
-          userId,
-          courseId,
-          status: 'active',
-        }).session(session);
+// Update payment record without MongoDB transactions to reduce failure points
+paymentRecord.status = 'completed';
+paymentRecord.paymentDate = new Date();
+paymentRecord.transactionId = transactionId;
+paymentRecord.paymentMethod = paymentMethod;
+await paymentRecord.save();
 
-        if (!existingEnrollment) {
-          const enrollment = new EnrollmentModel({
-            userId,
-            courseId,
-            enrolledAt: new Date(),
-            status: 'active',
-          });
-          await enrollment.save({ session });
+// Create enrollment if not already present
+const existingEnrollment = await EnrollmentModel.findOne({
+userId,
+courseId,
+status: 'active',
+});
 
-          await Promise.all([
-            UserModel.findByIdAndUpdate(userId, { $push: { enrolledCourses: enrollment._id } }, { session }),
-            CourseModel.findByIdAndUpdate(courseId, { $push: { enrollments: enrollment._id } }, { session }),
-          ]);
+if (!existingEnrollment) {
+const enrollment = new EnrollmentModel({
+userId,
+courseId,
+enrolledAt: new Date(),
+status: 'active',
+});
+await enrollment.save();
 
-          // Fetch user and course details for notification
-          const user = await UserModel.findById(userId).session(session);
-          const course = await CourseModel.findById(courseId).session(session);
+await Promise.all([
+UserModel.findByIdAndUpdate(userId, { $push: { enrolledCourses: enrollment._id } }),
+CourseModel.findByIdAndUpdate(courseId, { $push: { enrollments: enrollment._id } }),
+]);
 
-          // Find all admin users
-          const admins = await UserModel.find({ role: 'admin' }).select('_id').session(session);
-          const adminIds = admins.map(admin => admin._id);
+// Fetch user and course details for notification
+const user = await UserModel.findById(userId);
+const course = await CourseModel.findById(courseId);
 
-          // Create notification for admins
-          const enrollmentNotification = new NotificationModel({
-            title: 'New Course Enrollment 🔔',
-            message: `Student 🧑🏻‍🎓: ${user.name} [${user.email}] enrolled in the ${course.title} on ${new Date().toLocaleString()}`,
-            image: '',
-            userId: adminIds,
-            readBy: [],
-            type: 'announcement',
-            recipient: 'Admin',
-            scheduledAt: null,
-            status: 'sent',
-            channel: 'in-app',
-          });
+// Find all admin users
+const admins = await UserModel.find({ role: 'admin' }).select('_id');
+const adminIds = admins.map((admin) => admin._id);
 
-          await enrollmentNotification.save({ session });
+// Create notification for admins
+const enrollmentNotification = new NotificationModel({
+title: 'New Course Enrollment ',
+message: `Student : ${user.name} [${user.email}] enrolled in the ${course.title} on ${new Date().toLocaleString()}`,
+image: '',
+userId: adminIds,
+readBy: [],
+type: 'announcement',
+recipient: 'Admin',
+scheduledAt: null,
+status: 'sent',
+channel: 'in-app',
+});
 
-          // Add notification to admins' notifications array
-          await UserModel.updateMany(
-            { _id: { $in: adminIds } },
-            { $push: { notifications: enrollmentNotification._id } },
-            { session }
-          );
+await enrollmentNotification.save();
 
-          // Emit real-time notification to admins via socket
-          emitNotification(adminIds.map(id => id.toString()), enrollmentNotification);
-        }
-      });
-    } finally {
-      await session.endSession();
-    }
+// Add notification to admins' notifications array
+await UserModel.updateMany(
+{ _id: { $in: adminIds } },
+{ $push: { notifications: enrollmentNotification._id } }
+);
 
-    res.status(200).json({ message: 'Payment verified and user enrolled successfully' });
-  } catch (error) {
-    console.error('Error verifying payment:', error.response?.data || error.message);
-    res.status(500).json({ message: 'Server error while verifying payment', error: error.message });
-  }
+// Emit real-time notification to admins via socket
+emitNotification(adminIds.map((id) => id.toString()), enrollmentNotification);
+}
+
+res.status(200).json({ message: 'Payment verified and user enrolled successfully' });
+} catch (error) {
+console.error('Error verifying payment:', error.response?.data || error.message || error);
+res.status(500).json({ message: 'Server error while verifying payment', error: error.message || 'Unknown error' });
+}
 };
 
 const getPaymentHistory = async (req, res) => {
@@ -993,6 +1010,7 @@ const getPaymentHistory = async (req, res) => {
       .populate('userId', 'name email address phone') // Added phone
       .sort({ paymentDate: -1 })
       .lean();
+
     res.status(200).json({
       message: 'Payment history retrieved successfully',
       count: payments.length,

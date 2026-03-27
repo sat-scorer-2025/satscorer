@@ -14,6 +14,7 @@ const ExamPage = () => {
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const details = examData[examType?.toLowerCase()] || examData['sat'];
+  const heroBgImage = details.backgroundImage || '/images/exams/default.jpg';
 
   const reviews = [
     { name: 'Ananya Sharma', rating: 5, comment: 'The SAT course transformed my prep! Scored 1540 and got into UCLA. The mocks were incredibly accurate.' },
@@ -70,7 +71,11 @@ const ExamPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300 font-sans transition-all duration-300">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-800 via-purple-800 to-indigo-800 text-white py-12 sm:py-16 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxwYXR0ZXJuIGlkPSJ3YXZlIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQwIj48cGF0aCBkPSJNMCA0MCBMMTAwIDAgQzE1MCAwIDIwMCA0MCAyMDAgNDAgQzIwMCA0MCAxNTAgNDAgMTAwIDQwIEw0MCA0MCBaIiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjd2F2ZSkiLz48L3N2Zz4=')] animate-pulse"></div>
+        <div
+          className="absolute inset-0 bg-center bg-cover"
+          style={{ backgroundImage: `url('${heroBgImage}')` }}
+        ></div>
+        <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center max-w-5xl mx-auto">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight uppercase mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-pink-300 animate-fade-in">
             {details.name}

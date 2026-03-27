@@ -1,6 +1,14 @@
+import satBanner from '../assets/SAT_Banner.jpg';
+import greBanner from '../assets/greB1.png';
+import gmatBanner from '../assets/GMAT_Banner.jpg';
+import ieltsBanner from '../assets/IELTS_Banner.jpg';
+import actBanner from '../assets/ACT_Banner.jpg';
+import apBanner from '../assets/AP_Banner.jpg';
+
 export const examData = {
   sat: {
     name: "SAT",
+    backgroundImage: satBanner,
     overview: "Your Premier Gateway to Elite US Universities from India",
     introduction: "The SAT (Scholastic Assessment Test), administered by the College Board, is a globally recognized standardized test essential for undergraduate admissions to top-tier US and Canadian universities like MIT, Harvard, Stanford, and Yale. For Indian students, it’s a critical milestone, with over 55,000 test-takers annually from cities like Delhi, Mumbai, and Bangalore. Transitioned to a fully digital format in March 2024, the SAT evaluates critical reading, writing, and mathematical reasoning skills, designed to measure college readiness for Indian students aspiring to study abroad. It’s a key component for securing merit-based scholarships and aligning with US visa requirements.",
     syllabus: "Reading and Writing Module 1 (32 min, 27 questions): Information and Ideas (40%, main ideas, evidence-based analysis), Craft and Structure (30%, vocabulary in context, text purpose), Expression of Ideas (20%, rhetorical synthesis), Standard English Conventions (10%, grammar, punctuation).\n\nReading and Writing Module 2 (32 min, 27 questions): Adaptive difficulty based on Module 1 performance, covering the same topics.\n\nMath Module 1 (35 min, 22 questions): Algebra (35%, linear equations, systems), Advanced Math (35%, quadratics, polynomials), Problem-Solving and Data Analysis (20%, ratios, percentages, data interpretation), Geometry and Trigonometry (10%, triangles, circles, basic trig).\n\nMath Module 2 (35 min, 22 questions): Adaptive difficulty, same topics, with increased complexity for high performers.",
@@ -12,6 +20,7 @@ export const examData = {
   },
   gre: {
     name: "GRE",
+    backgroundImage: greBanner,
     overview: "Your Key to Global Graduate Programs from India",
     introduction: "The GRE (Graduate Record Examinations) General Test, managed by ETS, is a computer-adaptive test required for admission to over 1,300 graduate programs, including MS, MBA, and PhD degrees in the US, UK, Canada, Australia, and Europe. For Indian students, it’s essential for top universities like MIT, Stanford, Oxford, or NUS, with 1.6 lakh+ test-takers annually from cities like Bangalore, Delhi, and Hyderabad. Shortened to under 2 hours since September 2023, the GRE assesses analytical writing, verbal reasoning, and quantitative reasoning, tailored for Indian students aiming for global academic and career excellence.",
     syllabus: "Analytical Writing (30 min, 1 task): Analyze an Issue (argument task removed in 2023, focusing on critical thinking and structured writing).\n\nVerbal Reasoning (41 questions, 60 min): Reading Comprehension (50%, 10-12 passages on science, humanities, business), Text Completion (25%, single/double/triple-blank vocab questions), Sentence Equivalence (25%, selecting synonym pairs from 6 options).\n\nQuantitative Reasoning (37 questions, 70 min): Arithmetic (25%, percentages, ratios, number properties), Algebra (25%, equations, inequalities, functions), Geometry (20%, shapes, coordinate geometry), Data Analysis (30%, statistics, probability, data interpretation).",
@@ -23,6 +32,7 @@ export const examData = {
   },
   gmat: {
     name: "GMAT",
+    backgroundImage: gmatBanner,
     overview: "Launch Your Global MBA Career with GMAT Focus Edition",
     introduction: "The GMAT (Graduate Management Admission Test) Focus Edition, administered by GMAC, is the premier exam for MBA and business master’s admissions, accepted by 7,700+ programs worldwide, including ISB, IIMs (via CAT waiver), Harvard, Wharton, and INSEAD. For Indian professionals, it’s a gateway to elite business schools, with 45,000+ Indian test-takers annually from cities like Mumbai, Delhi, and Bangalore. Introduced in 2023, the Focus Edition emphasizes data insights, critical reasoning, and quantitative skills, tailored for Indian aspirants pursuing global leadership roles.",
     syllabus: "Quantitative Reasoning (21 questions, 45 min): Arithmetic (30%, ratios, percentages, number properties), Algebra (30%, equations, inequalities), Data Sufficiency (40%, unique problem-solving format requiring minimal calculation).\n\nVerbal Reasoning (23 questions, 45 min): Reading Comprehension (40%, business/social science passages), Critical Reasoning (60%, argument evaluation, logical flaws).\n\nData Insights (20 questions, 45 min): Multi-source Reasoning (30%, integrating text/data), Graphics Interpretation (30%, charts/graphs), Table Analysis (20%, spreadsheets), Two-part Analysis (20%, complex problem-solving).",
@@ -34,6 +44,7 @@ export const examData = {
   },
   ielts: {
     name: "IELTS",
+    backgroundImage: ieltsBanner,
     overview: "Master English Proficiency for Global Study, Work, and Migration",
     introduction: "The IELTS (International English Language Testing System), co-owned by British Council, IDP, and Cambridge, is the world’s leading English proficiency test, accepted by 11,500+ organizations in 140 countries, including universities, employers, and immigration authorities. For Indian students and professionals, it’s mandatory for study visas to the UK, Australia, Canada, and New Zealand, and admissions to 3,000+ universities, with 3.8 lakh+ Indian test-takers annually from cities like Delhi, Mumbai, Bangalore, and Chennai. Available in Academic (for study) and General Training (for work/migration) versions, IELTS assesses listening, reading, writing, and speaking skills, ensuring Indian aspirants meet global language standards.",
     syllabus: "Listening (30 min, 40 questions): 4 sections (2 conversations, 2 monologues, e.g., academic lectures, everyday scenarios).\n\nReading (60 min, 40 questions): Academic (3 long texts from journals, books, or articles) or General Training (3 sections: short texts, work-related notices, 1 long article).\n\nWriting (60 min): Task 1 (150 words, 20 min, describe graph/process [Academic] or formal/informal letter [General]), Task 2 (250 words, 40 min, argumentative essay).\n\nSpeaking (11-14 min): Part 1 (4-5 min, personal questions), Part 2 (2-min monologue on given topic), Part 3 (4-5 min, discussion on abstract ideas).",
@@ -45,6 +56,7 @@ export const examData = {
   },
   act: {
     name: "ACT",
+    backgroundImage: actBanner,
     overview: "Your Alternative Pathway to US Colleges from India",
     introduction: "The ACT (American College Testing), managed by ACT Inc., is a curriculum-based standardized test for US undergraduate admissions, accepted by all 4-year US colleges, including Ivy League schools like Yale, Princeton, and Caltech. For Indian students, it’s a strong alternative to the SAT, particularly for STEM-focused aspirants, with 12,000+ Indian test-takers annually from cities like Delhi, Mumbai, and Hyderabad. Emphasizing English, math, reading, science, and optional writing, the ACT suits Indian CBSE/ICSE students aiming for scholarships and competitive admissions.",
     syllabus: "English (45 min, 75 questions): Usage/Mechanics (50%, grammar, punctuation, sentence structure), Rhetorical Skills (50%, style, organization, strategy).\n\nMath (60 min, 60 questions): Pre-algebra (20%, number properties), Algebra (25%, equations, inequalities), Geometry (25%, coordinate, plane geometry), Trigonometry (10%, basic trig functions), Data Analysis (20%, probability, statistics).\n\nReading (35 min, 40 questions): Prose Fiction/Literary Narrative (25%), Social Sciences (25%), Humanities (25%), Natural Sciences (25%).\n\nScience (35 min, 40 questions): Data Representation (30%, charts/graphs), Research Summaries (45%, experiments), Conflicting Viewpoints (25%, hypothesis evaluation).\n\nWriting (40 min, optional): 1 persuasive essay (issue-based, scored 2-12).",
@@ -56,6 +68,7 @@ export const examData = {
   },
   ap: {
     name: "AP",
+    backgroundImage: apBanner,
     overview: "Earn US College Credits from Indian High Schools",
     introduction: "Advanced Placement (AP) exams, offered by the College Board, enable Indian high school students in CBSE/ICSE boards to take college-level courses and earn credits transferable to US universities like Stanford, MIT, or Ivy League schools. With 25,000+ Indian students taking 110,000+ exams annually, AP enhances applications to top global and Indian universities (e.g., Ashoka, OP Jindal). Covering 38 subjects across STEM, humanities, and arts, AP showcases academic rigor and prepares Indian students for college-level challenges.",
     syllabus: "Varies by subject (38 courses): AP Calculus AB/BC (limits, derivatives, integrals, series; 8-10 units); AP English Literature (poetry, prose, drama analysis; 9 units); AP Physics C (Mechanics: kinematics, Newton’s laws; Electricity & Magnetism: circuits, fields); AP Biology (cell biology, genetics, ecology, evolution; 8 units); AP World History (8000 BCE-present, global themes, 9 units); AP Computer Science A (Java programming, algorithms, data structures; 10 units).",
@@ -64,5 +77,5 @@ export const examData = {
     keyAspects: "- 38 subjects across STEM, humanities, arts, and languages.\n- Score 3+ accepted for credit at 90% of US colleges.\n- AP International Diploma (5+ exams in 4 areas) enhances global applications.\n- Digital exams (e.g., AP CS A, English) available since 2024.\n- Offered at 500+ Indian schools, including Mumbai, Delhi, and Bangalore.\n- Free AP Classroom resources (practice questions, videos) for prep.\n- Aligns with CBSE/ICSE syllabi, easing preparation for Indian students.",
     preparation: "Dedicate 9-12 months per AP course using AP Classroom resources (free practice questions, progress checks). Focus on free-response questions (40-50% of score) via College Board’s question bank. Take 4-6 mocks per subject via AP Classroom or Barron’s to target 4-5 scores. Join coaching from USACO, FIITJEE, or local tutors for Indian-specific strategies. Align with CBSE/ICSE syllabi (e.g., Physics C with Class 12 Physics). Practice subject-specific skills (e.g., Java coding for CS A, proofs for Calculus). Engage with AP forums (Reddit, College Confidential) for peer insights. Consider AP Summer Institutes or edX/Coursera courses for advanced prep. Plan around CBSE board exams (Feb-Mar).",
     considerations: "Register via collegeboard.org by November through school coordinators; Fees: ₹11,500 per exam (late fee ₹3,000); Scores valid indefinitely; Unlimited attempts (1/year per subject). Indian students should take 3-5 APs for competitive US admissions. Check university credit policies (e.g., MIT accepts 5, Harvard 4+). Digital exams require device compatibility (laptop/tablet). Verify school participation (DPS, Mumbai International, Pathways). Scores sent to 1 college free; additional reports ₹1,200 each. Plan around CBSE/ICSE board exams to avoid conflicts. Request accommodations (e.g., extra time) 8 weeks prior.",
-  }
+  },
 };
